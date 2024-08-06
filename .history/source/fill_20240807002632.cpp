@@ -1119,7 +1119,7 @@ int Fill() {
             CreateAlwaysIncludedMessages();
             CreateMiscHints();
             if (GossipStoneHints.IsNot(HINTS_NO_HINTS)) {
-                printf("\x1b[10;10HCreating lof file...");
+                printf("\x1b[10;10HCreating Gossip Stone Hints...");
                 CreateGossipStoneHints();
                 printf("Done");
             }

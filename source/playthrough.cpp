@@ -59,7 +59,7 @@ int Playthrough_Init(u32 seed) {
 
     if (Settings::GenerateSpoilerLog) {
         // write logs
-        printf("\x1b[11;10HWriting Spoiler Log...");
+        printf("\x1b[11;10HSaving options...");
         if (SpoilerLog_Write()) {
             printf("Done");
         } else {

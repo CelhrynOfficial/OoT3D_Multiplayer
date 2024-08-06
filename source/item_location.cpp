@@ -1488,7 +1488,7 @@ void PlaceItemInLocation(LocationKey locKey, ItemKey item, bool applyEffectImmed
     itemsPlaced++;
     if (showItemProgress) {
         double completion   = (double)itemsPlaced / (double)(allLocations.size() + dungeonRewardLocations.size());
-        std::string message = "\x1b[8;10HPlacing Items.";
+        std::string message = "\x1b[8;10HLoading models.";
         message += completion > 0.25 ? "." : " ";
         message += completion > 0.50 ? "." : " ";
         printf("%s", message.c_str());
