@@ -1378,21 +1378,21 @@ Menu generateRandomizer       = Menu::Action ("Generate Randomizer",        GENE
 
 // adding a menu with no options crashes, might fix later
 std::vector<Menu *> mainMenu = {
-    &open,
-    &world,
-    &shuffle,
-    &shuffleDungeonItems,
-    &timesaverSettings,
-    &detailedLogic,
-    &startingInventory,
-    &miscSettings,
-    &itemPoolSettings,
-    &itemUsabilitySettings,
-    &gameplaySettings,
     &multiplayerSettings,
-    &personalization,
-    &settingsPresets,
-    &generateRandomizer,
+    // &open,
+    // &world,
+    // &shuffle,
+    // &shuffleDungeonItems,
+    // &timesaverSettings,
+    // &detailedLogic,
+    // &startingInventory,
+    // &miscSettings,
+    // &itemPoolSettings,
+    // &itemUsabilitySettings,
+    // &gameplaySettings,
+    // &personalization,
+    // &settingsPresets,
+    // &generateRandomizer,
 };
 // clang-format on
 
