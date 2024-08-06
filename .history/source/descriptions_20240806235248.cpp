@@ -9,7 +9,7 @@ string_view menuOpenSettingsDesc      = "Depending on the enabled glitches and i
                                         "For example, bomb hovering to Ganon's Castle.";   //
 string_view menuGlitchOptionsDesc     = "These are only taken into account when logic is\n"
                                         "set to Glitched.";                                //
-string_view menuPersonalizationDesc   = " ";    //
+string_view menuPersonalizationDesc   = "";    //
 string_view menuIngameDefaultsDesc    = "These options decide what the ingame options are\n"
                                         "set to when creating a save file. The new ingame\n"
                                         "options can be changed in the Custom Info Menu."; //

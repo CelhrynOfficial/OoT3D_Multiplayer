@@ -33,7 +33,7 @@ include $(DEVKITARM)/3ds_rules
 #---------------------------------------------------------------------------------
 APP_TITLE       :=  Ocarina of Time 3D Multiplayer
 APP_AUTHOR      :=  Celhryn & Estuko
-APP_DESCRIPTION :=  Connect with your friends
+APP_DESCRIPTION :=  A different Ocarina of Time experience
 TARGET		    :=	$(notdir $(CURDIR))
 BUILD		    :=	build
 SOURCES		    :=	$(sort $(dir $(wildcard source/*/ source/)))
