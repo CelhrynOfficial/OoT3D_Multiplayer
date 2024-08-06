@@ -26,7 +26,7 @@ using namespace SFX;
 
 namespace Settings {
 std::string seed;
-std::string version = RANDOMIZER_VERSION "-" COMMIT_NUMBER;
+std::string version = MULTIPLAYER_VERSION "-" AUTHORS;
 std::array<u8, 5> hashIconIndexes;
 
 std::vector<std::string> NumOpts(int min, int max, int step = 1, std::string textBefore = {},
@@ -2591,9 +2591,6 @@ void ForceChange(u32 kDown, Option* currentSetting) {
         }
     }
 
-
-    
-    MP_Enabled.Hide();
     // Multiplayer
     for (auto op : multiplayerOptions) {
         if (op == &MP_Enabled) {
@@ -2689,13 +2686,6 @@ void ForceChange(u32 kDown, Option* currentSetting) {
         BombchuTrailDuration.SetSelectedIndex(2); // Vanilla
     }
 
-
-    
-
-    
-    ShuffleMusic.Hide();
-    
-    ShuffleSFX.Hide();
     // Audio
     if (ShuffleMusic) {
         ShuffleBGM.Unhide();

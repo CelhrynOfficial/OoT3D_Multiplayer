@@ -1300,38 +1300,38 @@ std::vector<Option *> cosmeticOptions = {
 
 static std::vector<std::string> musicOptions = {"Off", "On (Mixed)", "On (Grouped)", "On (Own)"};
 
-Option ShuffleMusic    = Option::Bool("Shuffle Music",                   {"Off", "On"},                             {musicRandoDesc},                                                                                                                          OptionCategory::Cosmetic);
-Option ShuffleBGM      = Option::U8  (2, "Shuffle BGM",                  {musicOptions},                            {shuffleBGMDesc},                                                                                                                          OptionCategory::Cosmetic,               SHUFFLEMUSIC_MIXED);
-Option ShuffleMelodies = Option::U8  (2, "Shuffle Melodies",             {musicOptions},                            {shuffleMelodiesDesc},                                                                                                                     OptionCategory::Cosmetic,               SHUFFLEMUSIC_GROUPED);
-Option CustomMusic     = Option::Bool(2, "Custom Music",                 {"Off", "On"},                             {customMusicDesc},                                                                                                                         OptionCategory::Cosmetic);
-Option CustomMusicOnly = Option::Bool(4, "Custom Music Only",            {"Off", "On"},                             {customMusicOnlyDesc},                                                                                                                     OptionCategory::Cosmetic);
+//Option ShuffleMusic    = Option::Bool("Shuffle Music",                   {"Off", "On"},                             {musicRandoDesc},                                                                                                                          OptionCategory::Cosmetic);
+//Option ShuffleBGM      = Option::U8  (2, "Shuffle BGM",                  {musicOptions},                            {shuffleBGMDesc},                                                                                                                          OptionCategory::Cosmetic,               SHUFFLEMUSIC_MIXED);
+//Option ShuffleMelodies = Option::U8  (2, "Shuffle Melodies",             {musicOptions},                            {shuffleMelodiesDesc},                                                                                                                     OptionCategory::Cosmetic,               SHUFFLEMUSIC_GROUPED);
+//Option CustomMusic     = Option::Bool(2, "Custom Music",                 {"Off", "On"},                             {customMusicDesc},                                                                                                                         OptionCategory::Cosmetic);
+//Option CustomMusicOnly = Option::Bool(4, "Custom Music Only",            {"Off", "On"},                             {customMusicOnlyDesc},                                                                                                                     OptionCategory::Cosmetic);
 
-Option ShuffleSFX              = Option::U8  ("Shuffle SFX",             {"Off", "All", "Scene Specific", "Chaos"}, {shuffleSFXOff, shuffleSFXAll, shuffleSFXSceneSpecific, shuffleSFXChaos},                                                                  OptionCategory::Cosmetic);
-Option ShuffleSFXFootsteps     = Option::Bool(2, "Include Footsteps",    {"No", "Yes"},                             {""},                                                                                                                                      OptionCategory::Cosmetic,               ON);
-Option ShuffleSFXLinkVoice     = Option::Bool(2, "Include Link's Voice", {"No", "Yes"},                             {""},                                                                                                                                      OptionCategory::Cosmetic,               ON);
-Option ShuffleSFXCategorically = Option::Bool(2, "Categorical Shuffle",  {"Off", "On"},                             {shuffleSFXCategorically},                                                                                                                 OptionCategory::Cosmetic,               ON);
+//Option ShuffleSFX              = Option::U8  ("Shuffle SFX",             {"Off", "All", "Scene Specific", "Chaos"}, {shuffleSFXOff, shuffleSFXAll, shuffleSFXSceneSpecific, shuffleSFXChaos},                                                                  OptionCategory::Cosmetic);
+//Option ShuffleSFXFootsteps     = Option::Bool(2, "Include Footsteps",    {"No", "Yes"},                             {""},                                                                                                                                      OptionCategory::Cosmetic,               ON);
+//Option ShuffleSFXLinkVoice     = Option::Bool(2, "Include Link's Voice", {"No", "Yes"},                             {""},                                                                                                                                      OptionCategory::Cosmetic,               ON);
+//Option ShuffleSFXCategorically = Option::Bool(2, "Categorical Shuffle",  {"Off", "On"},                             {shuffleSFXCategorically},                                                                                                                 OptionCategory::Cosmetic,               ON);
 
-std::vector<Option*> audioOptions = {
-    &ShuffleMusic,
-    &ShuffleBGM,
-    &ShuffleMelodies,
-    &CustomMusic,
-    &CustomMusicOnly,
-    &ShuffleSFX,
-    &ShuffleSFXFootsteps,
-    &ShuffleSFXLinkVoice,
-    &ShuffleSFXCategorically,
-};
+//std::vector<Option*> audioOptions = {
+    //&ShuffleMusic,
+    //&ShuffleBGM,
+    //&ShuffleMelodies,
+    //&CustomMusic,
+    //&CustomMusicOnly,
+    //&ShuffleSFX,
+    //&ShuffleSFXFootsteps,
+    //&ShuffleSFXLinkVoice,
+    //&ShuffleSFXCategorically,
+//};
 
 Menu preferences              = Menu::SubMenu("Misc Preferences",           &preferenceOptions);
 Menu ingameDefaults           = Menu::SubMenu("Ingame Defaults",            &ingameDefaultOptions, menuIngameDefaultsDesc);
 Menu cosmetics                = Menu::SubMenu("Cosmetic Settings",          &cosmeticOptions);
-Menu audio                    = Menu::SubMenu("Audio Settings",             &audioOptions);
+//Menu audio                    = Menu::SubMenu("Audio Settings",             &audioOptions);
 std::vector<Menu*> personalizationOptions = {
     &preferences,
     &ingameDefaults,
     &cosmetics,
-    &audio,
+    //&audio,
 };
 
 Menu loadPremadePreset      = Menu::Action("Load Premade Preset",        LOAD_PREMADE_PRESET);
@@ -2591,9 +2591,6 @@ void ForceChange(u32 kDown, Option* currentSetting) {
         }
     }
 
-
-    
-    MP_Enabled.Hide();
     // Multiplayer
     for (auto op : multiplayerOptions) {
         if (op == &MP_Enabled) {
@@ -2690,12 +2687,7 @@ void ForceChange(u32 kDown, Option* currentSetting) {
     }
 
 
-    
-
-    
     ShuffleMusic.Hide();
-    
-    ShuffleSFX.Hide();
     // Audio
     if (ShuffleMusic) {
         ShuffleBGM.Unhide();

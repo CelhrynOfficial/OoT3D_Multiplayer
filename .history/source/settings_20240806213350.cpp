@@ -2592,7 +2592,7 @@ void ForceChange(u32 kDown, Option* currentSetting) {
     }
 
 
-    
+    MP_Enabled = true;
     MP_Enabled.Hide();
     // Multiplayer
     for (auto op : multiplayerOptions) {
@@ -2692,9 +2692,9 @@ void ForceChange(u32 kDown, Option* currentSetting) {
 
     
 
-    
+    ShuffleMusic = false;
     ShuffleMusic.Hide();
-    
+    ShuffleSFX = false;
     ShuffleSFX.Hide();
     // Audio
     if (ShuffleMusic) {

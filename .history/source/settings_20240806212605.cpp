@@ -2591,9 +2591,6 @@ void ForceChange(u32 kDown, Option* currentSetting) {
         }
     }
 
-
-    
-    MP_Enabled.Hide();
     // Multiplayer
     for (auto op : multiplayerOptions) {
         if (op == &MP_Enabled) {
@@ -2689,13 +2686,6 @@ void ForceChange(u32 kDown, Option* currentSetting) {
         BombchuTrailDuration.SetSelectedIndex(2); // Vanilla
     }
 
-
-    
-
-    
-    ShuffleMusic.Hide();
-    
-    ShuffleSFX.Hide();
     // Audio
     if (ShuffleMusic) {
         ShuffleBGM.Unhide();
