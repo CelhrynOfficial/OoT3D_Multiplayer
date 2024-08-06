@@ -1041,7 +1041,6 @@ std::vector<Option*> multiplayerOptions = {
     &MP_SharedAmmo,
 };
 
-
 Option QuickText           = Option::U8  ("Quick Text",             {"0: Vanilla", "1: Skippable", "2: Instant", "3: Turbo"},               {quickTextDesc0, quickTextDesc1, quickTextDesc2, quickTextDesc3},                                                 OptionCategory::Cosmetic,   QUICKTEXT_INSTANT);
 Option MenuOpeningButton   = Option::U8  ("Open Info Menu with",    {"Select","Start","D-Pad Up","D-Pad Down","D-Pad Right","D-Pad Left",}, {menuButtonDesc},                                                                                                 OptionCategory::Cosmetic);
 Option ArrowSwitchButton   = Option::U8  ("Switch Arrows with",     {"D-Pad Right","D-Pad Left","D-Pad Up","D-Pad Down","Touch Screen",},   {arrowSwitchDesc},                                                                                                OptionCategory::Cosmetic);
@@ -1577,7 +1576,7 @@ SettingsContext FillContext() {
     ctx.progressiveGoronSword = (ProgressiveGoronSword) ? 1 : 0;
 
     ctx.mp_Enabled        = MP_Enabled.Value<u8>();
-    ctx.mp_SharedProgress = (MP_SharedProgress) ? 1 : 1;
+    ctx.mp_SharedProgress = (MP_SharedProgress) ? 1 : 0;
     ctx.mp_SyncId         = MP_SyncId.Value<u8>() + 1;
     ctx.mp_SharedAmmo     = (MP_SharedAmmo) ? 1 : 0;
     ctx.mp_SharedHealth   = (MP_SharedHealth) ? 1 : 0;
@@ -2613,8 +2612,6 @@ void ForceChange(u32 kDown, Option* currentSetting) {
         MP_SyncId.Hide();
         MP_SyncId.SetSelectedIndex(0);
     }
-    MP_SyncId.Hide();
-    MP_SharedProgress.Hide();
 
     // Tunic Colors
     if (CustomTunicColors) {

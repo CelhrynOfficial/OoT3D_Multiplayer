@@ -1577,7 +1577,7 @@ SettingsContext FillContext() {
     ctx.progressiveGoronSword = (ProgressiveGoronSword) ? 1 : 0;
 
     ctx.mp_Enabled        = MP_Enabled.Value<u8>();
-    ctx.mp_SharedProgress = (MP_SharedProgress) ? 1 : 1;
+    ctx.mp_SharedProgress = (MP_SharedProgress) ? 1 : 0;
     ctx.mp_SyncId         = MP_SyncId.Value<u8>() + 1;
     ctx.mp_SharedAmmo     = (MP_SharedAmmo) ? 1 : 0;
     ctx.mp_SharedHealth   = (MP_SharedHealth) ? 1 : 0;
@@ -2614,7 +2614,6 @@ void ForceChange(u32 kDown, Option* currentSetting) {
         MP_SyncId.SetSelectedIndex(0);
     }
     MP_SyncId.Hide();
-    MP_SharedProgress.Hide();
 
     // Tunic Colors
     if (CustomTunicColors) {

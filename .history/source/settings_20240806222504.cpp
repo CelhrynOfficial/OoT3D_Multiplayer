@@ -2614,7 +2614,6 @@ void ForceChange(u32 kDown, Option* currentSetting) {
         MP_SyncId.SetSelectedIndex(0);
     }
     MP_SyncId.Hide();
-    MP_SharedProgress.Hide();
 
     // Tunic Colors
     if (CustomTunicColors) {
