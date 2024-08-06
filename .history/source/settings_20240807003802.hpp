@@ -24,7 +24,7 @@ class Option {
   public:
     static Option Bool(std::string name_, std::vector<std::string> options_,
                        std::vector<std::string_view> optionDescriptions_,
-                       OptionCategory category_ = OptionCategory::Setting, u8 defaultOption_ = 1,
+                       OptionCategory category_ = OptionCategory::Setting, u8 defaultOption_ = 0,
                        bool defaultHidden_ = true) {
         return Option{ false,     u8{ 0 },        std::move(name_), std::move(options_), std::move(optionDescriptions_),
                        category_, defaultOption_, defaultHidden_ };
