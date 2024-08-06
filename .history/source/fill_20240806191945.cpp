@@ -973,10 +973,10 @@ void VanillaFill() {
 
 void ClearProgress() {
     printf("\x1b[7;32H    ");                                // Done
-    printf("\x1b[8;10H                    ");                // Loading models...Done
-    printf("\x1b[9;10H                              ");      // Calculating region...Done
-    printf("\x1b[10;10H                     ");              // Creating log file...Done
-    printf("\x1b[11;10H                                  "); // Writing...Done
+    printf("\x1b[8;10H                    ");                // Placing Items...Done
+    printf("\x1b[9;10H                              ");      // Calculating Playthrough...Done
+    printf("\x1b[10;10H                     ");              // Creating Gossip Stone Hints...Done
+    printf("\x1b[11;10H                                  "); // Writing Spoiler Log...Done
 }
 
 int Fill() {

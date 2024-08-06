@@ -36,9 +36,9 @@ void PrintTopScreen() {
     printf("\x1b[3;18H%s%s-%s%s", CYAN, RANDOMIZER_VERSION, COMMIT_NUMBER, RESET);
     printf("\x1b[4;10HA/B/D-pad: Navigate Menu\n");
     printf("            Select: Exit to Homebrew Menu\n");
-    //printf("                 Y: New Random Seed\n");
-    //printf("                 X: Input Custom Seed\n");
-    //printf("\x1b[11;7HCurrent Seed: %s", Settings::seed.c_str());
+    printf("                 Y: New Random Seed\n");
+    printf("                 X: Input Custom Seed\n");
+    printf("\x1b[11;7HCurrent Seed: %s", Settings::seed.c_str());
 }
 
 void MenuInit() {
@@ -240,18 +240,18 @@ void MenuUpdate(u32 kDown, bool updatedByHeld, u32 kHeld) {
     if (currentMenu->mode != POST_GENERATE) {
 
         // New Random Seed
-        //if (kDown & KEY_Y) {
-        //    pastSeedLength = Settings::seed.length();
-        //    Settings::seed = std::to_string(rand());
-        //    seedChanged    = true;
-        //}
+        if (kDown & KEY_Y) {
+            pastSeedLength = Settings::seed.length();
+            Settings::seed = std::to_string(rand());
+            seedChanged    = true;
+        }
 
         // Input Custom Seed
-        //if (kDown & KEY_X) {
-        //    pastSeedLength = Settings::seed.length();
-        //    Settings::seed = GetInput("Enter Seed");
-        //    seedChanged    = true;
-        //}
+        if (kDown & KEY_X) {
+            pastSeedLength = Settings::seed.length();
+            Settings::seed = GetInput("Enter Seed");
+            seedChanged    = true;
+        }
 
         // Reprint seed if it changed
         if (seedChanged) {

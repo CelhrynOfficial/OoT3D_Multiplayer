@@ -1751,8 +1751,6 @@ SettingsContext FillContext() {
     return ctx;
 }
 
-
-MP_Enabled.Hide();
 // One-time initialization
 void InitSettings() {
     // Create Location Exclude settings

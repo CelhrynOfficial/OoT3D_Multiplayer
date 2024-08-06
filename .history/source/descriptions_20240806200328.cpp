@@ -1158,7 +1158,7 @@ string_view mp_EnabledDesc            = "Enables multiplayer.\n"                
 string_view mp_SharedProgressDesc     = "Progress and certain actors will be synced between"
                                         "everyone in the network that has this option on,\n"
                                         "the same seed hash, and the same sync id.";       //
-string_view mp_SyncIdDesc             = "Limits shared progress sync with other\n" //
+string_view mp_SyncIdDesc             = "Limits shared progress to only sync with other\n" //
                                         "players that have the same sync ID. This is only\n"
                                         "necessary to set if multiple groups of players\n" //
                                         "play on the same seed hash, but only want to share"

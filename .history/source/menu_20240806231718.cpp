@@ -240,18 +240,18 @@ void MenuUpdate(u32 kDown, bool updatedByHeld, u32 kHeld) {
     if (currentMenu->mode != POST_GENERATE) {
 
         // New Random Seed
-        //if (kDown & KEY_Y) {
-        //    pastSeedLength = Settings::seed.length();
-        //    Settings::seed = std::to_string(rand());
-        //    seedChanged    = true;
-        //}
+        if (kDown & KEY_Y) {
+            pastSeedLength = Settings::seed.length();
+            Settings::seed = std::to_string(rand());
+            seedChanged    = true;
+        }
 
         // Input Custom Seed
-        //if (kDown & KEY_X) {
-        //    pastSeedLength = Settings::seed.length();
-        //    Settings::seed = GetInput("Enter Seed");
-        //    seedChanged    = true;
-        //}
+        if (kDown & KEY_X) {
+            pastSeedLength = Settings::seed.length();
+            Settings::seed = GetInput("Enter Seed");
+            seedChanged    = true;
+        }
 
         // Reprint seed if it changed
         if (seedChanged) {

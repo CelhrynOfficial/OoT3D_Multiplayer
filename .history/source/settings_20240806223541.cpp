@@ -1375,7 +1375,7 @@ Menu gameplaySettings         = Menu::SubMenu("Gameplay Settings",          &gam
 Menu multiplayerSettings      = Menu::SubMenu("Multiplayer Settings",       &multiplayerOptions);
 Menu personalization          = Menu::SubMenu("Personalization Settings",   &personalizationOptions, menuPersonalizationDesc);
 Menu settingsPresets          = Menu::SubMenu("Settings Presets",           &settingsPresetItems);
-Menu generateRandomizer       = Menu::Action ("Generate Multiplayer",        GENERATE_MODE);
+Menu generateRandomizer       = Menu::Action ("Generate Randomizer",        GENERATE_MODE);
 
 // adding a menu with no options crashes, might fix later
 std::vector<Menu *> mainMenu = {
@@ -1751,8 +1751,6 @@ SettingsContext FillContext() {
     return ctx;
 }
 
-
-MP_Enabled.Hide();
 // One-time initialization
 void InitSettings() {
     // Create Location Exclude settings
