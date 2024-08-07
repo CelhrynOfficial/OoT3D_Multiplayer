@@ -2697,9 +2697,9 @@ void ForceChange(u32 kDown, Option* currentSetting) {
     
 
     
+    ShuffleMusic.Hide();
     
-    
-    
+    ShuffleSFX.Hide();
     // Audio
     if (ShuffleMusic) {
         ShuffleBGM.Unhide();
