@@ -322,17 +322,17 @@ static void ReplaceMaxItem(const ItemKey itemToReplace, int max) {
     }
 }
 
-void PlaceJunkInExcludedLocation(const LocationKey il) {
+//void PlaceJunkInExcludedLocation(const LocationKey il) {
     // place a non-advancement item in this location
-    for (size_t i = 0; i < ItemPool.size(); i++) {
-        if (!ItemTable(ItemPool[i]).IsAdvancement()) {
-           //PlaceItemInLocation(il, ItemPool[i]);
-           //ItemPool.erase(ItemPool.begin() + i);
-            return;
-        }
-    }
+//    for (size_t i = 0; i < ItemPool.size(); i++) {
+//        if (!ItemTable(ItemPool[i]).IsAdvancement()) {
+//            PlaceItemInLocation(il, ItemPool[i]);
+//            ItemPool.erase(ItemPool.begin() + i);
+//            return;
+//        }
+//    }
     //printf("ERROR: No Junk to Place!!!\n");
-}
+//}
 
 static void PlaceVanillaDekuScrubItems() {
     PlaceItemInLocation(ZR_DEKU_SCRUB_GROTTO_REAR, RED_POTION_REFILL, false, true);

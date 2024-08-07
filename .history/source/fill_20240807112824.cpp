@@ -949,14 +949,13 @@ static void RandomizeLinksPocket() {
 void VanillaFill() {
     // Perform minimum needed initialization
     AreaTable_Init();
-    //GenerateLocationPool();
-    //GenerateItemPool();
-    //GenerateStartingInventory();
+    GenerateLocationPool();
+    GenerateItemPool();
+    GenerateStartingInventory();
     // Place vanilla item in each location
-    //RandomizeDungeonRewards();
+    RandomizeDungeonRewards();
     for (LocationKey loc : allLocations) {
-        //Location(loc)->PlaceVanillaItem();
-        continue;
+        Location(loc)->PlaceVanillaItem();
     }
     // If necessary, handle ER stuff
     if (ShuffleEntrances) {
@@ -965,11 +964,11 @@ void VanillaFill() {
         printf("\x1b[7;32HDone");
     }
     // Populate the playthrough for entrances so they are placed in the spoiler log
-    //GeneratePlaythrough();
+    GeneratePlaythrough();
     // Finish up
-    //CreateItemOverrides();
-    //CreateEntranceOverrides();
-    //CreateAlwaysIncludedMessages();
+    CreateItemOverrides();
+    CreateEntranceOverrides();
+    CreateAlwaysIncludedMessages();
 }
 
 void ClearProgress() {
@@ -1000,15 +999,15 @@ int Fill() {
         // Temporarily add shop items to the ItemPool so that entrance randomization
         // can validate the world using deku/hylian shields
         AddElementsToPool(ItemPool, GetMinVanillaShopItems(32)); // assume worst case shopsanity 4
-        //if (ShuffleEntrances) {
-        //    printf("\x1b[7;10HShuffling Entrances");
-        //    if (ShuffleAllEntrances() == ENTRANCE_SHUFFLE_FAILURE) {
-        //        retries++;
-        //        ClearProgress();
-        //        continue;
-        //    }
-        //    printf("\x1b[7;32HDone");
-        //}
+        if (ShuffleEntrances) {
+            printf("\x1b[7;10HShuffling Entrances");
+            if (ShuffleAllEntrances() == ENTRANCE_SHUFFLE_FAILURE) {
+                retries++;
+                ClearProgress();
+                continue;
+            }
+            printf("\x1b[7;32HDone");
+        }
         // erase temporary shop items
         FilterAndEraseFromPool(ItemPool,
                                [](const ItemKey item) { return ItemTable(item).GetItemType() == ITEMTYPE_SHOP; });
@@ -1065,9 +1064,9 @@ int Fill() {
         }
 
         // Place dungeon rewards
-        //RandomizeDungeonRewards();
+        RandomizeDungeonRewards();
 
-        //Place dungeon items restricted to their Own Dungeon
+        // Place dungeon items restricted to their Own Dungeon
         for (auto dungeon : Dungeon::dungeonList) {
             RandomizeOwnDungeon(dungeon);
         }

@@ -24,7 +24,7 @@ class Option {
   public:
     static Option Bool(std::string name_, std::vector<std::string> options_,
                        std::vector<std::string_view> optionDescriptions_,
-                       OptionCategory category_ = OptionCategory::Setting, u8 defaultOption_ = 1,
+                       OptionCategory category_ = OptionCategory::Setting, u8 defaultOption_ = ,
                        bool defaultHidden_ = false) {
         return Option{ false,     u8{ 0 },        std::move(name_), std::move(options_), std::move(optionDescriptions_),
                        category_, defaultOption_, defaultHidden_ };
@@ -32,7 +32,7 @@ class Option {
 
     static Option U8(std::string name_, std::vector<std::string> options_,
                      std::vector<std::string_view> optionDescriptions_,
-                     OptionCategory category_ = OptionCategory::Setting, u8 defaultOption_ = 0,
+                     OptionCategory category_ = OptionCategory::Setting, u8 defaultOption_ = 1,
                      bool defaultHidden_ = true) {
         return Option{ u8{ 0 },   u8{ 0 },        std::move(name_), std::move(options_), std::move(optionDescriptions_),
                        category_, defaultOption_, defaultHidden_ };
@@ -49,7 +49,7 @@ class Option {
     static Option U8(u8 indent_, std::string name_, std::vector<std::string> options_,
                      std::vector<std::string_view> optionDescriptions_,
                      OptionCategory category_ = OptionCategory::Setting, u8 defaultOption_ = 1,
-                     bool defaultHidden_ = false) {
+                     bool defaultHidden_ = true) {
         return Option{ u8{ 0 },   indent_,        std::move(name_), std::move(options_), std::move(optionDescriptions_),
                        category_, defaultOption_, defaultHidden_ };
     }

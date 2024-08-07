@@ -2283,78 +2283,78 @@ void ForceChange(u32 kDown, Option* currentSetting) {
 
     // Force Link's Pocket Item to be a dungeon reward if Shuffle Rewards is end of dungeons
     if (ShuffleRewards.Is(REWARDSHUFFLE_END_OF_DUNGEON)) {
-        //LinksPocketItem.Lock();
-        //LinksPocketItem.SetSelectedIndex(LINKSPOCKETITEM_DUNGEON_REWARD);
+        LinksPocketItem.Lock();
+        LinksPocketItem.SetSelectedIndex(LINKSPOCKETITEM_DUNGEON_REWARD);
         if (RandomizeShuffle) {
             // Even if it is supposed to be locked, still hide it to keep the surprise
-            //LinksPocketItem.Unlock();
-            //LinksPocketItem.Hide();
+            LinksPocketItem.Unlock();
+            LinksPocketItem.Hide();
         }
     } else {
-        //LinksPocketItem.Unlock();
+        LinksPocketItem.Unlock();
     }
 
     if (ShuffleEnemySouls || RandomizeShuffle) {
-        //startingEnemySouls.Unlock();
+        startingEnemySouls.Unlock();
     } else {
-        //startingEnemySouls.Lock();
-        //startingInventory.ResetMenuIndex();
+        startingEnemySouls.Lock();
+        startingInventory.ResetMenuIndex();
     }
 
     if (ShuffleOcarinaButtons || RandomizeShuffle) {
-        //startingOcarinaButtons.Unlock();
+        startingOcarinaButtons.Unlock();
     } else {
-        //startingOcarinaButtons.Lock();
-        //startingInventory.ResetMenuIndex();
+        startingOcarinaButtons.Lock();
+        startingInventory.ResetMenuIndex();
     }
 
     if (!RandomizeDungeon) {
         // Only show Medallion Count if setting Ganons Boss Key to LACS Medallions
         if (GanonsBossKey.Is(GANONSBOSSKEY_LACS_MEDALLIONS)) {
-            //LACSMedallionCount.Unhide();
+            LACSMedallionCount.Unhide();
         } else {
-            //LACSMedallionCount.SetSelectedIndex(6);
-            //LACSMedallionCount.Hide();
+            LACSMedallionCount.SetSelectedIndex(6);
+            LACSMedallionCount.Hide();
         }
 
         // Only show Stone Count if setting Ganons Boss Key to LACS Stones
         if (GanonsBossKey.Is(GANONSBOSSKEY_LACS_STONES)) {
-            //LACSStoneCount.Unhide();
+            LACSStoneCount.Unhide();
         } else {
-            //LACSStoneCount.SetSelectedIndex(3);
-            //LACSStoneCount.Hide();
+            LACSStoneCount.SetSelectedIndex(3);
+            LACSStoneCount.Hide();
         }
 
         // Only show Reward Count if setting Ganons Boss Key to LACS Rewards
         if (GanonsBossKey.Is(GANONSBOSSKEY_LACS_REWARDS)) {
-            //LACSRewardCount.Unhide();
+            LACSRewardCount.Unhide();
         } else {
-            //LACSRewardCount.SetSelectedIndex(9);
-            //LACSRewardCount.Hide();
+            LACSRewardCount.SetSelectedIndex(9);
+            LACSRewardCount.Hide();
         }
 
         // Only show Dungeon Count if setting Ganons Boss Key to LACS Dungeons
         if (GanonsBossKey.Is(GANONSBOSSKEY_LACS_DUNGEONS)) {
-            //LACSDungeonCount.Unhide();
+            LACSDungeonCount.Unhide();
         } else {
-            //LACSDungeonCount.SetSelectedIndex(8);
-            //LACSDungeonCount.Hide();
+            LACSDungeonCount.SetSelectedIndex(8);
+            LACSDungeonCount.Hide();
         }
 
         // Only show Token Count if setting Ganons Boss Key to LACS Tokens
         if (GanonsBossKey.Is(GANONSBOSSKEY_LACS_TOKENS)) {
-            //LACSTokenCount.Unhide();
+            LACSTokenCount.Unhide();
         } else {
-            //LACSTokenCount.SetSelectedIndex(100);
-            //LACSTokenCount.Hide();
+            LACSTokenCount.SetSelectedIndex(100);
+            LACSTokenCount.Hide();
         }
 
         // Only show Heart Count if setting Ganons Boss Key to LACS Hearts
         if (GanonsBossKey.Is(GANONSBOSSKEY_LACS_HEARTS)) {
-            //LACSHeartCount.Unhide();
+            LACSHeartCount.Unhide();
         } else {
-            //LACSHeartCount.SetSelectedIndex(20);
-            //LACSHeartCount.Hide();
+            LACSHeartCount.SetSelectedIndex(20);
+            LACSHeartCount.Hide();
         }
 
         if (KeyRings.Is(KEYRINGS_CHOOSE)) {
@@ -2615,7 +2615,8 @@ void ForceChange(u32 kDown, Option* currentSetting) {
         MP_SyncId.Hide();
         MP_SyncId.SetSelectedIndex(0);
     }
-    
+    MP_SyncId.Hide();
+    MP_SharedProgress.Hide();
 
     // Tunic Colors
     if (CustomTunicColors) {

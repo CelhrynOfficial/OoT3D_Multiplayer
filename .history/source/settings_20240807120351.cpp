@@ -2327,34 +2327,34 @@ void ForceChange(u32 kDown, Option* currentSetting) {
 
         // Only show Reward Count if setting Ganons Boss Key to LACS Rewards
         if (GanonsBossKey.Is(GANONSBOSSKEY_LACS_REWARDS)) {
-            //LACSRewardCount.Unhide();
+            LACSRewardCount.Unhide();
         } else {
-            //LACSRewardCount.SetSelectedIndex(9);
-            //LACSRewardCount.Hide();
+            LACSRewardCount.SetSelectedIndex(9);
+            LACSRewardCount.Hide();
         }
 
         // Only show Dungeon Count if setting Ganons Boss Key to LACS Dungeons
         if (GanonsBossKey.Is(GANONSBOSSKEY_LACS_DUNGEONS)) {
-            //LACSDungeonCount.Unhide();
+            LACSDungeonCount.Unhide();
         } else {
-            //LACSDungeonCount.SetSelectedIndex(8);
-            //LACSDungeonCount.Hide();
+            LACSDungeonCount.SetSelectedIndex(8);
+            LACSDungeonCount.Hide();
         }
 
         // Only show Token Count if setting Ganons Boss Key to LACS Tokens
         if (GanonsBossKey.Is(GANONSBOSSKEY_LACS_TOKENS)) {
-            //LACSTokenCount.Unhide();
+            LACSTokenCount.Unhide();
         } else {
-            //LACSTokenCount.SetSelectedIndex(100);
-            //LACSTokenCount.Hide();
+            LACSTokenCount.SetSelectedIndex(100);
+            LACSTokenCount.Hide();
         }
 
         // Only show Heart Count if setting Ganons Boss Key to LACS Hearts
         if (GanonsBossKey.Is(GANONSBOSSKEY_LACS_HEARTS)) {
-            //LACSHeartCount.Unhide();
+            LACSHeartCount.Unhide();
         } else {
-            //LACSHeartCount.SetSelectedIndex(20);
-            //LACSHeartCount.Hide();
+            LACSHeartCount.SetSelectedIndex(20);
+            LACSHeartCount.Hide();
         }
 
         if (KeyRings.Is(KEYRINGS_CHOOSE)) {
