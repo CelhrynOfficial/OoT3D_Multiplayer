@@ -1,7 +1,6 @@
 #pragma once
 #include <set>
 #include <3ds.h>
-#include "playthrough.hpp"
 #include "settings.hpp"
 #include "patch_symbols_USA.hpp"
 #include "patch_symbols_EUR.hpp"

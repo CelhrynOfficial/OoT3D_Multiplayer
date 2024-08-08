@@ -1,5 +1,4 @@
 #include "cosmetics.hpp"
-#include "random.hpp"
 #include <sstream>
 #include <3ds.h>
 
@@ -145,10 +144,4 @@ const std::array<std::string_view, 13> weaponTrailColors = {
     "FF0000", // Rainbow (starts at red)
 };
 
-// Generate random hex color
-std::string RandomColor() {
-    std::ostringstream color;
-    color << std::hex << (Random(0, 0x1000000, true));
-    return color.str();
-}
 } // namespace Cosmetics

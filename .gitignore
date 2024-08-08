@@ -2,6 +2,7 @@
 *vs/*
 backup/*
 build/*
+.history
 *.txt
 *.bin
 *.elf

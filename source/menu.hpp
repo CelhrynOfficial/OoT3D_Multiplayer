@@ -3,6 +3,8 @@
 #include <3ds.h>
 #include <string>
 
+#include "menu_registry.hpp"
+
 #define MAIN_MENU 0
 #define SUB_MENU 1
 #define OPTION_MENU 2
@@ -47,7 +49,7 @@ void PrintResetToDefaultsMenu();
 void PrintGenerateMenu();
 void ClearDescription();
 void PrintDescription(std::string_view description);
-void GenerateRandomizer();
+void GenerateMultiplayer();
 std::string GetInput(const char* hintText);
 
 extern void MenuInit();

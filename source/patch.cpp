@@ -1,14 +1,7 @@
 #include "patch.hpp"
 
+#include "settings/menus.hpp"
 #include "cosmetics.hpp"
-#include "custom_messages.hpp"
-#include "music.hpp"
-#include "sound_effects.hpp"
-#include "shops.hpp"
-#include "spoiler_log.hpp"
-#include "entrance.hpp"
-#include "hints.hpp"
-#include "gold_skulltulas.hpp"
 
 #include <array>
 #include <cstring>
@@ -82,7 +75,7 @@ bool WritePatch(u32 patchOffset, s32 patchSize, char* patchDataPtr, Handle& code
         // Write patch offset address to code
         buf[0] = (patchOffset >> 16) & 0xFF;
         buf[1] = (patchOffset >> 8) & 0xFF;
-        buf[2] = (patchOffset)&0xFF;
+        buf[2] = (patchOffset) & 0xFF;
         if (!R_SUCCEEDED(FSFILE_Write(code, &bytesWritten, totalRW, buf, 3, FS_WRITE_FLUSH))) {
             return false;
         }
@@ -91,7 +84,7 @@ bool WritePatch(u32 patchOffset, s32 patchSize, char* patchDataPtr, Handle& code
         // Write patch size to code
         u32 newPatchSize = (patchSize > PATCH_SIZE_MAX) ? PATCH_SIZE_MAX : patchSize;
         buf[0]           = (newPatchSize >> 8) & 0xFF;
-        buf[1]           = (newPatchSize)&0xFF;
+        buf[1]           = (newPatchSize) & 0xFF;
         if (!R_SUCCEEDED(FSFILE_Write(code, &bytesWritten, totalRW, buf, 2, FS_WRITE_FLUSH))) {
             return false;
         }
@@ -198,39 +191,8 @@ bool WriteAllPatches() {
 #endif
     }
 
-    /*-------------------------
-    |      rItemOverrides     |
-    --------------------------*/
-
-    u32 patchOffset                             = V_TO_P(patchSymbols.RITEMOVERRIDES_ADDR);
-    s32 patchSize                               = sizeof(ItemOverride) * overrides.size();
-    ItemOverride ovrPatchData[overrides.size()] = {};
-    // generate override data
-    size_t i = 0;
-    for (const auto& override : overrides) {
-        ovrPatchData[i] = override;
-        i++;
-    }
-    if (!WritePatch(patchOffset, patchSize, (char*)ovrPatchData, code, bytesWritten, totalRW, buf)) {
-        return false;
-    }
-
-    /*-------------------------
-    |    rEntranceOverrides   |
-    --------------------------*/
-
-    patchOffset                                              = V_TO_P(patchSymbols.RENTRANCEOVERRIDES_ADDR);
-    patchSize                                                = sizeof(EntranceOverride) * entranceOverrides.size();
-    EntranceOverride eOvrPatchData[entranceOverrides.size()] = {};
-    // generate entrance override patch data
-    i = 0;
-    for (const auto& entranceOverride : entranceOverrides) {
-        eOvrPatchData[i] = entranceOverride;
-        i++;
-    }
-    if (!WritePatch(patchOffset, patchSize, (char*)eOvrPatchData, code, bytesWritten, totalRW, buf)) {
-        return false;
-    }
+    u32 patchOffset;
+    u32 patchSize;
 
     /*-------------------------
     |     gSettingsContext    |
@@ -244,203 +206,20 @@ bool WriteAllPatches() {
         return false;
     }
 
-    /*-------------------------
-    |       gSpoilerData      |
-    --------------------------*/
-
-    patchOffset = V_TO_P(patchSymbols.GSPOILERDATA_ADDR);
-    patchSize   = sizeof(SpoilerData);
-    if (!WritePatch(patchOffset, patchSize, (char*)(GetSpoilerData()), code, bytesWritten, totalRW, buf)) {
-        return false;
-    }
-    patchSize = sizeof(SpoilerDataLocs);
-    for (size_t idx = 0; idx < SPOILER_LOCDATS; idx++) {
-        patchOffset = V_TO_P(patchSymbols.GSPOILERDATALOCS_ADDR) + (patchSize * idx);
-        if (!WritePatch(patchOffset, patchSize, (char*)(GetSpoilerDataLocs(idx)), code, bytesWritten, totalRW, buf)) {
-            return false;
-        }
-    }
-
-    /*-------------------------------
-    |     rScrubRandomItemPrices    |
-    |     rScrubTextIdTable         |
-    --------------------------------*/
-    std::array<u16, 11> rScrubTextIdTable{ 0x9014, 0x900F, 0x900A, 0x9028, 0x9032, 0x9028,
-                                           0x9046, 0x9028, 0x9028, 0x9028, 0x9028 };
-
-    // Only fill prices in if random prices
-    if (ctx.scrubsanity == SCRUBSANITY_RANDOM_PRICES) {
-        // Create array of random prices
-        std::array<s16, 11> rScrubRandomItemPrices{};
-        for (i = 0; i < rScrubRandomItemPrices.size(); i++) {
-            const s16 price           = GetRandomScrubPrice();
-            rScrubRandomItemPrices[i] = price;
-            rScrubTextIdTable[i]      = static_cast<u16>(0x9000 + static_cast<u16>(price));
-        }
-
-        // Write the patch for random scrub prices
-        patchOffset = V_TO_P(patchSymbols.RSCRUBRANDOMITEMPRICES_ADDR);
-        patchSize   = sizeof(rScrubRandomItemPrices);
-        if (!WritePatch(patchOffset, patchSize, (char*)(&rScrubRandomItemPrices), code, bytesWritten, totalRW, buf)) {
-            return false;
-        }
-
-    } else if (ctx.scrubsanity == SCRUBSANITY_AFFORDABLE) {
-        // If affordable is set, write all text IDs as the 10 rupee price ID
-        rScrubTextIdTable.fill(0x900A);
-    }
-    if (ctx.scrubsanity != SCRUBSANITY_OFF) {
-        // Write the patch for the scrub text ID table
-        patchOffset = V_TO_P(0x52236C); // this is the address of the base game's scrub textId table
-        patchSize   = sizeof(rScrubTextIdTable);
-        if (!WritePatch(patchOffset, patchSize, (char*)(&rScrubTextIdTable), code, bytesWritten, totalRW, buf)) {
-            return false;
-        }
-    }
-
-    /*-------------------------------
-    |     rShopsanityPrices         |
-    --------------------------------*/
-
-    if (Settings::Shopsanity.IsNot(SHOPSANITY_OFF) && Settings::Shopsanity.IsNot(SHOPSANITY_ZERO)) {
-        // Get prices from shop item vector
-        std::array<s32, 32> rShopsanityPrices{};
-        for (i = 0; i < 32; i++) {
-            rShopsanityPrices[i] = NonShopItems[i].Price;
-        }
-
-        // Write shopsanity item prices to the patch
-        patchOffset = V_TO_P(patchSymbols.RSHOPSANITYPRICES_ADDR);
-        patchSize   = sizeof(rShopsanityPrices);
-        if (!WritePatch(patchOffset, patchSize, (char*)(&rShopsanityPrices), code, bytesWritten, totalRW, buf)) {
-            return false;
-        }
-    }
-
-    /*--------------------------------
-    |     rDungeonRewardOverrides    |
-    ---------------------------------*/
-    // Write rDungeonRewardOverrides to the patch
-    if (Settings::ShuffleRewards.Is(REWARDSHUFFLE_END_OF_DUNGEON)) {
-        patchOffset = V_TO_P(patchSymbols.RDUNGEONREWARDOVERRIDES_ADDR);
-        patchSize   = sizeof(Settings::rDungeonRewardOverrides);
-        if (!WritePatch(patchOffset, patchSize, (char*)(&Settings::rDungeonRewardOverrides), code, bytesWritten,
-                        totalRW, buf)) {
-            return false;
-        }
-    }
-
-    /*--------------------------------
-    |     rCustomMessageEntries      |
-    ---------------------------------*/
-
-    std::pair<const char*, u32> messageDataInfo    = CustomMessages::RawMessageData();
-    std::pair<const char*, u32> messageEntriesInfo = CustomMessages::RawMessageEntryData();
-
-    // Write message data to patch
-    u32 messageDataOffset = V_TO_P(patchSymbols.RCUSTOMMESSAGES_ADDR);
-    s32 messageDataSize   = messageDataInfo.second;
-    if (!WritePatch(messageDataOffset, messageDataSize, (char*)messageDataInfo.first, code, bytesWritten, totalRW,
-                    buf)) {
-        return false;
-    }
-
-    // Write message entries to patch
-    u32 messageEntriesOffset = (messageDataOffset + messageDataSize + 3) & ~3; // round up and align with u32
-    s32 messageEntriesSize   = messageEntriesInfo.second;
-    if (!WritePatch(messageEntriesOffset, messageEntriesSize, (char*)messageEntriesInfo.first, code, bytesWritten,
-                    totalRW, buf)) {
-        return false;
-    }
-
-    // Write ptrCustomMessageEntries to patch
-    patchOffset                     = V_TO_P(patchSymbols.PTRCUSTOMMESSAGEENTRIES_ADDR);
-    patchSize                       = 4;
-    u32 ptrCustomMessageEntriesData = P_TO_V(messageEntriesOffset);
-    if (!WritePatch(patchOffset, patchSize, (char*)(&ptrCustomMessageEntriesData), code, bytesWritten, totalRW, buf)) {
-        return false;
-    }
-
-    // Write numCustomMessageEntries to code
-    patchOffset                     = V_TO_P(patchSymbols.NUMCUSTOMMESSAGEENTRIES_ADDR);
-    patchSize                       = 4;
-    u32 numCustomMessageEntriesData = CustomMessages::NumMessages();
-    if (!WritePatch(patchOffset, patchSize, (char*)(&numCustomMessageEntriesData), code, bytesWritten, totalRW, buf)) {
-        return false;
-    }
-
-    /*--------------------------------
-    |       Extra Arrow Effects      |
-    ---------------------------------*/
-
-    const u32 BREAKWALL_BUMPERFLAGS_ADDR = 0x00510C80;
-    const u32 ARROW_ATFLAGS_ADDR         = 0x00520749;
-    const u32 SUNSWITCH_BUMPERFLAGS_ADDR = 0x00535390;
-
-    u32 patchOffset_Breakwall = V_TO_P(BREAKWALL_BUMPERFLAGS_ADDR);
-    u32 patchOffset_Arrow     = V_TO_P(ARROW_ATFLAGS_ADDR);
-    u32 patchOffset_SunSwitch = V_TO_P(SUNSWITCH_BUMPERFLAGS_ADDR);
-
-    u8 arrowAtFlags          = 0x29;       // adding AT_TYPE_OTHER (0x20)
-    u32 breakwallBumperFlags = 0x00001048; // adding Ice Arrow damage (0x00001000)
-    u32 sunSwitchBumperFlags = 0x00202000; // adding Light Arrow damage (0x00002000)
-
-    if (ctx.extraArrowEffects && (!WritePatch(patchOffset_Breakwall, sizeof(breakwallBumperFlags),
-                                              (char*)(&breakwallBumperFlags), code, bytesWritten, totalRW, buf) ||
-                                  !WritePatch(patchOffset_Arrow, sizeof(arrowAtFlags), (char*)(&arrowAtFlags), code,
-                                              bytesWritten, totalRW, buf) ||
-                                  !WritePatch(patchOffset_SunSwitch, sizeof(sunSwitchBumperFlags),
-                                              (char*)(&sunSwitchBumperFlags), code, bytesWritten, totalRW, buf))) {
-        return false;
-    }
-
-    /*--------------------------------
-    |         rBGMOverrides          |
-    ---------------------------------*/
-
-    // Only write patch if index variant of music shuffle is used
-    if (!Music::archiveFound) {
-        patchOffset = V_TO_P(patchSymbols.RBGMOVERRIDES_ADDR);
-        patchSize   = sizeof(Music::seqOverridesMusic);
-        if (!WritePatch(patchOffset, patchSize, (char*)Music::seqOverridesMusic.data(), code, bytesWritten, totalRW,
-                        buf)) {
-            return false;
-        }
-    }
-
-    /*---------------------------------
-    |            rSfxData             |
-    ---------------------------------*/
-
-    patchOffset = V_TO_P(patchSymbols.RSFXDATA_ADDR);
-    patchSize   = sizeof(SFXData);
-    if (!WritePatch(patchOffset, patchSize, (char*)(&SFX::GetSFXData()), code, bytesWritten, totalRW, buf)) {
-        return false;
-    }
-
-    /*---------------------------------
-    |        rDungeonInfoData         |
-    ---------------------------------*/
-
-    patchOffset = V_TO_P(patchSymbols.RDUNGEONINFODATA_ADDR);
-    patchSize   = sizeof(dungeonInfoData);
-    if (!WritePatch(patchOffset, patchSize, (char*)(&dungeonInfoData), code, bytesWritten, totalRW, buf)) {
-        return false;
-    }
-
     /*--------------------------------
     |         Gauntlet Colors        |
     ---------------------------------*/
 
     const u32 GAUNTLETCOLORSARRAY_ADDR = 0x0053CA1C;
     const std::array rGauntletColors{
-        Cosmetics::HexStrToColorRGBAf(Settings::finalSilverGauntletsColor),
-        Cosmetics::HexStrToColorRGBAf(Settings::finalGoldGauntletsColor),
-    };
+        Cosmetics::HexStrToColorRGBAf(PersonalizationMenu::finalSilverGauntletsColor),
+        Cosmetics::HexStrToColorRGBAf(PersonalizationMenu::finalGoldGauntletsColor),
+    };    
 
     // Write Gauntlet Colors address to code
     patchOffset = V_TO_P(GAUNTLETCOLORSARRAY_ADDR);
     patchSize   = sizeof(rGauntletColors);
+    
     if (!WritePatch(patchOffset, patchSize, (char*)rGauntletColors.data(), code, bytesWritten, totalRW, buf)) {
         return false;
     }
@@ -451,44 +230,44 @@ bool WriteAllPatches() {
 
     const u32 NAVICOLORSARRAY_ADDR = 0x0050C998;
     const std::array rNaviColors{
-        Cosmetics::HexStrToColorRGBA8(Settings::finalPropNaviInnerColor),
-        Cosmetics::HexStrToColorRGBA8(Settings::finalPropNaviOuterColor),
+        Cosmetics::HexStrToColorRGBA8(PersonalizationMenu::finalPropNaviInnerColor),
+        Cosmetics::HexStrToColorRGBA8(PersonalizationMenu::finalPropNaviOuterColor),
 
-        Cosmetics::HexStrToColorRGBA8(Settings::finalPropNaviInnerColor),
-        Cosmetics::HexStrToColorRGBA8(Settings::finalPropNaviOuterColor),
+        Cosmetics::HexStrToColorRGBA8(PersonalizationMenu::finalPropNaviInnerColor),
+        Cosmetics::HexStrToColorRGBA8(PersonalizationMenu::finalPropNaviOuterColor),
 
-        Cosmetics::HexStrToColorRGBA8(Settings::finalIdleNaviInnerColor),
-        Cosmetics::HexStrToColorRGBA8(Settings::finalIdleNaviOuterColor),
+        Cosmetics::HexStrToColorRGBA8(PersonalizationMenu::finalIdleNaviInnerColor),
+        Cosmetics::HexStrToColorRGBA8(PersonalizationMenu::finalIdleNaviOuterColor),
 
-        Cosmetics::HexStrToColorRGBA8(Settings::finalPropNaviInnerColor),
-        Cosmetics::HexStrToColorRGBA8(Settings::finalPropNaviOuterColor),
+        Cosmetics::HexStrToColorRGBA8(PersonalizationMenu::finalPropNaviInnerColor),
+        Cosmetics::HexStrToColorRGBA8(PersonalizationMenu::finalPropNaviOuterColor),
 
-        Cosmetics::HexStrToColorRGBA8(Settings::finalNPCNaviInnerColor),
-        Cosmetics::HexStrToColorRGBA8(Settings::finalNPCNaviOuterColor),
+        Cosmetics::HexStrToColorRGBA8(PersonalizationMenu::finalNPCNaviInnerColor),
+        Cosmetics::HexStrToColorRGBA8(PersonalizationMenu::finalNPCNaviOuterColor),
 
-        Cosmetics::HexStrToColorRGBA8(Settings::finalEnemyNaviInnerColor),
-        Cosmetics::HexStrToColorRGBA8(Settings::finalEnemyNaviOuterColor),
+        Cosmetics::HexStrToColorRGBA8(PersonalizationMenu::finalEnemyNaviInnerColor),
+        Cosmetics::HexStrToColorRGBA8(PersonalizationMenu::finalEnemyNaviOuterColor),
 
-        Cosmetics::HexStrToColorRGBA8(Settings::finalPropNaviInnerColor),
-        Cosmetics::HexStrToColorRGBA8(Settings::finalPropNaviOuterColor),
+        Cosmetics::HexStrToColorRGBA8(PersonalizationMenu::finalPropNaviInnerColor),
+        Cosmetics::HexStrToColorRGBA8(PersonalizationMenu::finalPropNaviOuterColor),
 
-        Cosmetics::HexStrToColorRGBA8(Settings::finalPropNaviInnerColor),
-        Cosmetics::HexStrToColorRGBA8(Settings::finalPropNaviOuterColor),
+        Cosmetics::HexStrToColorRGBA8(PersonalizationMenu::finalPropNaviInnerColor),
+        Cosmetics::HexStrToColorRGBA8(PersonalizationMenu::finalPropNaviOuterColor),
 
-        Cosmetics::HexStrToColorRGBA8(Settings::finalPropNaviInnerColor),
-        Cosmetics::HexStrToColorRGBA8(Settings::finalPropNaviOuterColor),
+        Cosmetics::HexStrToColorRGBA8(PersonalizationMenu::finalPropNaviInnerColor),
+        Cosmetics::HexStrToColorRGBA8(PersonalizationMenu::finalPropNaviOuterColor),
 
-        Cosmetics::HexStrToColorRGBA8(Settings::finalEnemyNaviInnerColor),
-        Cosmetics::HexStrToColorRGBA8(Settings::finalEnemyNaviOuterColor),
+        Cosmetics::HexStrToColorRGBA8(PersonalizationMenu::finalEnemyNaviInnerColor),
+        Cosmetics::HexStrToColorRGBA8(PersonalizationMenu::finalEnemyNaviOuterColor),
 
-        Cosmetics::HexStrToColorRGBA8(Settings::finalPropNaviInnerColor),
-        Cosmetics::HexStrToColorRGBA8(Settings::finalPropNaviOuterColor),
+        Cosmetics::HexStrToColorRGBA8(PersonalizationMenu::finalPropNaviInnerColor),
+        Cosmetics::HexStrToColorRGBA8(PersonalizationMenu::finalPropNaviOuterColor),
 
-        Cosmetics::HexStrToColorRGBA8(Settings::finalPropNaviInnerColor),
-        Cosmetics::HexStrToColorRGBA8(Settings::finalPropNaviOuterColor),
+        Cosmetics::HexStrToColorRGBA8(PersonalizationMenu::finalPropNaviInnerColor),
+        Cosmetics::HexStrToColorRGBA8(PersonalizationMenu::finalPropNaviOuterColor),
 
-        Cosmetics::HexStrToColorRGBA8(Settings::finalPropNaviInnerColor),
-        Cosmetics::HexStrToColorRGBA8(Settings::finalPropNaviOuterColor),
+        Cosmetics::HexStrToColorRGBA8(PersonalizationMenu::finalPropNaviInnerColor),
+        Cosmetics::HexStrToColorRGBA8(PersonalizationMenu::finalPropNaviOuterColor),
     };
 
     // Write Navi Colors address to code
@@ -504,11 +283,11 @@ bool WriteAllPatches() {
     ---------------------------------*/
 
     const u32 SWORDTRAILCOLORSARRAY_ADDR = 0x0053C136;
-    Cosmetics::Color_RGBA8 p1StartColor  = Cosmetics::HexStrToColorRGBA8(Settings::finalSwordTrailOuterColor);
-    Cosmetics::Color_RGBA8 p2StartColor  = Cosmetics::HexStrToColorRGBA8(Settings::finalSwordTrailInnerColor);
-    Cosmetics::Color_RGBA8 p1EndColor    = Cosmetics::HexStrToColorRGBA8(Settings::finalSwordTrailOuterColor);
-    Cosmetics::Color_RGBA8 p2EndColor    = Cosmetics::HexStrToColorRGBA8(Settings::finalSwordTrailInnerColor);
-    bool shouldDrawSimple                = Settings::ChosenSimpleMode ||
+    Cosmetics::Color_RGBA8 p1StartColor = Cosmetics::HexStrToColorRGBA8(PersonalizationMenu::finalSwordTrailOuterColor);
+    Cosmetics::Color_RGBA8 p2StartColor = Cosmetics::HexStrToColorRGBA8(PersonalizationMenu::finalSwordTrailInnerColor);
+    Cosmetics::Color_RGBA8 p1EndColor   = Cosmetics::HexStrToColorRGBA8(PersonalizationMenu::finalSwordTrailOuterColor);
+    Cosmetics::Color_RGBA8 p2EndColor   = Cosmetics::HexStrToColorRGBA8(PersonalizationMenu::finalSwordTrailInnerColor);
+    bool shouldDrawSimple               = PersonalizationMenu::ChosenSimpleMode ||
                             (p1StartColor.r != 0xFF && p1StartColor.g != 0xFF && p1StartColor.b != 0xFF) ||
                             (p2StartColor.r != 0xFF && p2StartColor.g != 0xFF && p2StartColor.b != 0xFF);
     // Restore original alpha for End colors
@@ -531,7 +310,7 @@ bool WriteAllPatches() {
 
     const u32 SWORDTRAILDURATION_ADDR = 0x0053C146;
     char rSwordTrailDuration          = 6;
-    switch (Settings::SwordTrailDuration.Value<u8>()) {
+    switch (PersonalizationMenu::SwordTrailDuration.Value<u8>()) {
         case TRAILDURATION_DISABLED:
             rSwordTrailDuration = 0;
             break;
@@ -575,10 +354,10 @@ bool WriteAllPatches() {
     ---------------------------------*/
 
     const u32 BOMBCHUTRAILCOLORSARRAY_ADDR = 0x00521248;
-    p1StartColor                           = Cosmetics::HexStrToColorRGBA8(Settings::finalChuTrailOuterColor);
-    p2StartColor                           = Cosmetics::HexStrToColorRGBA8(Settings::finalChuTrailInnerColor);
-    p1EndColor                             = Cosmetics::HexStrToColorRGBA8(Settings::finalChuTrailOuterColor);
-    p2EndColor                             = Cosmetics::HexStrToColorRGBA8(Settings::finalChuTrailInnerColor);
+    p1StartColor = Cosmetics::HexStrToColorRGBA8(PersonalizationMenu::finalChuTrailOuterColor);
+    p2StartColor = Cosmetics::HexStrToColorRGBA8(PersonalizationMenu::finalChuTrailInnerColor);
+    p1EndColor   = Cosmetics::HexStrToColorRGBA8(PersonalizationMenu::finalChuTrailOuterColor);
+    p2EndColor   = Cosmetics::HexStrToColorRGBA8(PersonalizationMenu::finalChuTrailInnerColor);
     // Restore original alpha
     p1StartColor.a = 0xFA;
     p2StartColor.a = 0x82;
@@ -617,7 +396,8 @@ bool WriteAllPatches() {
     */
 
     // variable from Sword Trails
-    shouldDrawSimple = Settings::ChosenSimpleMode || ctx.boomerangTrailColorMode == TRAILCOLOR_FORCEDSIMPLEMODE ||
+    shouldDrawSimple = PersonalizationMenu::ChosenSimpleMode ||
+                       ctx.boomerangTrailColorMode == TRAILCOLOR_FORCEDSIMPLEMODE ||
                        ctx.boomerangTrailColorMode == TRAILCOLOR_RAINBOW_SIMPLEMODE;
 
     const u32 BOOMERANGTRAILUNKMODE_ADDR = 0x001ADB18; // This is part of an ASM instruction, "mov r0,#0xC"
@@ -634,17 +414,6 @@ bool WriteAllPatches() {
     }
 
     /*---------------------------------
-    |     Gold Skulltula Locations    |
-    ---------------------------------*/
-
-    patchOffset = V_TO_P(patchSymbols.RGSLOCOVERRIDES_ADDR);
-    patchSize   = sizeof(GsLocOverride) * Gs_GetOverrideData()->size();
-
-    if (!WritePatch(patchOffset, patchSize, (char*)Gs_GetOverrideData()->data(), code, bytesWritten, totalRW, buf)) {
-        return false;
-    }
-
-    /*---------------------------------
     |   Sold Out Cosmetic Shop Model  |
     ---------------------------------*/
 
@@ -654,7 +423,7 @@ bool WriteAllPatches() {
     patchOffset = V_TO_P(SHOPITEMENTRY_SOLDOUT_CMBINDEX_ADDR);
     patchSize   = 1;
 
-    if (Settings::BetaSoldOut &&
+    if (PersonalizationMenu::BetaSoldOut &&
         !WritePatch(patchOffset, patchSize, &soldOutCMBIndex, code, bytesWritten, totalRW, buf)) {
         return false;
     }
@@ -688,10 +457,10 @@ bool WriteAllPatches() {
     |       custom assets      |
     --------------------------*/
 
-    Cosmetics::Color_RGBAf childTunicColor  = Cosmetics::HexStrToColorRGBAf(Settings::finalChildTunicColor);
-    Cosmetics::Color_RGBAf kokiriTunicColor = Cosmetics::HexStrToColorRGBAf(Settings::finalKokiriTunicColor);
-    Cosmetics::Color_RGBAf goronTunicColor  = Cosmetics::HexStrToColorRGBAf(Settings::finalGoronTunicColor);
-    Cosmetics::Color_RGBAf zoraTunicColor   = Cosmetics::HexStrToColorRGBAf(Settings::finalZoraTunicColor);
+    Cosmetics::Color_RGBAf childTunicColor  = Cosmetics::HexStrToColorRGBAf(PersonalizationMenu::finalChildTunicColor);
+    Cosmetics::Color_RGBAf kokiriTunicColor = Cosmetics::HexStrToColorRGBAf(PersonalizationMenu::finalKokiriTunicColor);
+    Cosmetics::Color_RGBAf goronTunicColor  = Cosmetics::HexStrToColorRGBAf(PersonalizationMenu::finalGoronTunicColor);
+    Cosmetics::Color_RGBAf zoraTunicColor   = Cosmetics::HexStrToColorRGBAf(PersonalizationMenu::finalZoraTunicColor);
 
     // Delete assets if it exists
     Handle assetsOut;
@@ -743,6 +512,7 @@ bool WriteAllPatches() {
             return false;
         }
     }
+
     FSFILE_Close(assetsOut);
 
     FSUSER_CloseArchive(sdmcArchive);
