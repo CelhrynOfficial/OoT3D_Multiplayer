@@ -37,8 +37,11 @@ SettingsContext FillContext() {
     ctx.mp_SharedHealth   = (MultiplayerMenu::MP_SharedHealth) ? 1 : 0;
     ctx.mp_SharedRupees   = (MultiplayerMenu::MP_SharedRupees) ? 1 : 0;
 
-    ctx.startingAge = 1;
+    ctx.startingAge         = 1;
     ctx.resolvedStartingAge = 1;
+
+    ctx.playMusic = 1;
+    ctx.playSFX = 1;
 
     return ctx;
 }
@@ -135,37 +138,46 @@ void UpdateCosmetics() {
     ChooseFinalColor(KokiriTunicColor, finalKokiriTunicColor, tunicColors);
     ChooseFinalColor(GoronTunicColor, finalGoronTunicColor, tunicColors);
     ChooseFinalColor(ZoraTunicColor, finalZoraTunicColor, tunicColors);
+
     if (ChildTunicColor.Is(SAME_AS_KOKIRI)) {
         finalChildTunicColor = finalKokiriTunicColor;
         ChildTunicColor.SetSelectedIndex(KokiriTunicColor.Value<u8>());
     } else {
         ChooseFinalColor(ChildTunicColor, finalChildTunicColor, tunicColors);
     }
+
     // Gauntlets
     ChooseFinalColor(SilverGauntletsColor, finalSilverGauntletsColor, gauntletColors);
     ChooseFinalColor(GoldGauntletsColor, finalGoldGauntletsColor, gauntletColors);
+
     // Navi
     ChooseFinalNaviColor(IdleNaviInnerColor, IdleNaviOuterColor, finalIdleNaviInnerColor, finalIdleNaviOuterColor);
     ChooseFinalNaviColor(NPCNaviInnerColor, NPCNaviOuterColor, finalNPCNaviInnerColor, finalNPCNaviOuterColor);
     ChooseFinalNaviColor(EnemyNaviInnerColor, EnemyNaviOuterColor, finalEnemyNaviInnerColor, finalEnemyNaviOuterColor);
     ChooseFinalNaviColor(PropNaviInnerColor, PropNaviOuterColor, finalPropNaviInnerColor, finalPropNaviOuterColor);
+
     // Sword Trail
     ChooseFinalColor(SwordTrailInnerColor, finalSwordTrailInnerColor, weaponTrailColors);
+
     if (SwordTrailOuterColor.Is(SAME_AS_INNER_TRAIL)) {
         SwordTrailOuterColor.SetSelectedIndex(SwordTrailInnerColor.Value<u8>());
         finalSwordTrailOuterColor = finalSwordTrailInnerColor;
     } else {
         ChooseFinalColor(SwordTrailOuterColor, finalSwordTrailOuterColor, weaponTrailColors);
     }
+
     // Boomerang Trail
     std::string tempString;
+
     Cosmetics::Color_RGBA8 tempColor;
     ChooseFinalColor(BoomerangTrailColor, tempString, weaponTrailColors);
+
     tempColor             = Cosmetics::HexStrToColorRGBA8(tempString);
     finalBoomerangColor.r = tempColor.r;
     finalBoomerangColor.g = tempColor.g;
     finalBoomerangColor.b = tempColor.b;
     finalBoomerangColor.a = tempColor.a;
+
     if (BoomerangTrailColor.Value<u8>() == RAINBOW_TRAIL) {
         boomerangTrailColorMode = (ChosenSimpleMode) ? TRAILCOLOR_RAINBOW_SIMPLEMODE : TRAILCOLOR_RAINBOW;
     } else if (ChosenSimpleMode ||
@@ -175,8 +187,10 @@ void UpdateCosmetics() {
     } else {
         boomerangTrailColorMode = TRAILCOLOR_VANILLAMODE;
     }
+
     // Bombchus Trail
     ChooseFinalColor(BombchuTrailInnerColor, finalChuTrailInnerColor, weaponTrailColors);
+
     if (BombchuTrailOuterColor.Is(SAME_AS_INNER_TRAIL)) {
         BombchuTrailOuterColor.SetSelectedIndex(BombchuTrailInnerColor.Value<u8>());
         finalChuTrailOuterColor = finalChuTrailInnerColor;
