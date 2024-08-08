@@ -507,8 +507,7 @@ bool WriteAllPatches() {
         WriteFloatToBuffer(buffer, childTunicColor.b, childTunicOffsetInZAR + 0xA0);
 
         // Write the assets to final destination
-        if (!R_SUCCEEDED(res =
-                             FSFILE_Write(assetsOut, &bytesWritten, 0, buffer.data(), buffer.size(), FS_WRITE_FLUSH))) {
+        if (!R_SUCCEEDED(res = FSFILE_Write(assetsOut, &bytesWritten, 0, buffer.data(), buffer.size(), FS_WRITE_FLUSH))) {
             return false;
         }
     }
