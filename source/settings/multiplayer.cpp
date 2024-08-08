@@ -2,7 +2,6 @@
 
 namespace MultiplayerMenu {
 
-Option MP_Enabled        = Option::U8  ("Multiplayer",     {"Off", "On (Local)"}, {mp_EnabledDesc});
 Option MP_SharedProgress = Option::Bool("Shared Progress", {"Off", "On"},         {mp_SharedProgressDesc});
 Option MP_SyncId         = Option::U8  (2, "Sync ID",      {Settings::NumOpts(1, 1)},       {mp_SyncIdDesc}, OptionCategory::Cosmetic);
 Option MP_SharedHealth   = Option::Bool("Shared Health",   {"Off", "On"},         {mp_SharedHealthDesc});
@@ -10,7 +9,6 @@ Option MP_SharedRupees   = Option::Bool("Shared Rupees",   {"Off", "On"},       
 Option MP_SharedAmmo     = Option::Bool("Shared Ammo",     {"Off", "On"},         {mp_SharedAmmoDesc});
 
 std::vector<Option*> multiplayerOptions = {
-    &MP_Enabled,
     &MP_SharedProgress,
     &MP_SyncId,
     &MP_SharedHealth,

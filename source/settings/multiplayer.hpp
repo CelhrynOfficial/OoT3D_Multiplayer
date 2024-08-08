@@ -5,7 +5,6 @@
 
 namespace MultiplayerMenu {
 
-extern Option MP_Enabled;
 extern Option MP_SharedProgress;
 extern Option MP_SyncId;
 extern Option MP_SharedHealth;
