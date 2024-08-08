@@ -30,7 +30,7 @@ SettingsContext FillContext() {
     ctx.hashIndexes[4] = hashIconIndexes[4];
     ctx.region         = Region;
 
-    ctx.mp_Enabled        = MultiplayerMenu::MP_Enabled.Value<u8>();
+    ctx.mp_Enabled        = 1;
     ctx.mp_SharedProgress = (MultiplayerMenu::MP_SharedProgress) ? 1 : 1;
     ctx.mp_SyncId         = MultiplayerMenu::MP_SyncId.Value<u8>() + 1;
     ctx.mp_SharedAmmo     = (MultiplayerMenu::MP_SharedAmmo) ? 1 : 0;
