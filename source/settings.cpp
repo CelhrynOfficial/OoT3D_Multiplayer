@@ -31,8 +31,8 @@ SettingsContext FillContext() {
     ctx.region         = Region;
 
     ctx.mp_Enabled        = 1;
+    ctx.mp_SyncId         = 1;
     ctx.mp_SharedProgress = (MultiplayerMenu::MP_SharedProgress) ? 1 : 1;
-    ctx.mp_SyncId         = MultiplayerMenu::MP_SyncId.Value<u8>() + 1;
     ctx.mp_SharedAmmo     = (MultiplayerMenu::MP_SharedAmmo) ? 1 : 0;
     ctx.mp_SharedHealth   = (MultiplayerMenu::MP_SharedHealth) ? 1 : 0;
     ctx.mp_SharedRupees   = (MultiplayerMenu::MP_SharedRupees) ? 1 : 0;

@@ -6,23 +6,25 @@
 static u32 rBGMOverrides[128] = { 0 };
 
 u32 SetBGM(u32 original) {
-    if (!gExtSaveData.option_EnableBGM && IsInGameOrBossChallenge()) {
-        return SEQ_AUDIO_BLANK;
-    }
+    return original;
 
-    s32 i = original - BGM_BASE;
-    u32 bgm;
+    // if (!gExtSaveData.option_EnableBGM && IsInGameOrBossChallenge()) {
+    //     return SEQ_AUDIO_BLANK;
+    // }
 
-    // Check for invalid index
-    if (i < 0 || i > BGM_COUNT) {
-        return original;
-    }
+    // s32 i = original - BGM_BASE;
+    // u32 bgm;
 
-    bgm = rBGMOverrides[i];
-    // Check for invalid song
-    if (bgm < BGM_BASE || bgm > BGM_BASE + BGM_COUNT) {
-        return original;
-    }
+    // // Check for invalid index
+    // if (i < 0 || i > BGM_COUNT) {
+    //     return original;
+    // }
 
-    return rBGMOverrides[i];
+    // bgm = rBGMOverrides[i];
+    // // Check for invalid song
+    // if (bgm < BGM_BASE || bgm > BGM_BASE + BGM_COUNT) {
+    //     return original;
+    // }
+
+    // return rBGMOverrides[i];
 }
