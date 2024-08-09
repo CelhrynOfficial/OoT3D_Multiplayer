@@ -120,17 +120,17 @@ SECTIONS
 		*(.patch_BeanDaddyModifyPrice)
 	}
 
-	.patch_SkipTwinrovaQuarrelCutsceneOne 0x15273C : {
-		*(.patch_SkipTwinrovaQuarrelCutsceneOne)
-	}
+	#.patch_SkipTwinrovaQuarrelCutsceneOne 0x15273C : {
+	#	*(.patch_SkipTwinrovaQuarrelCutsceneOne)
+	#}
 
 	.patch_FairyPickupHealAmount 0x15CA4C : {
 		*(.patch_FairyPickupHealAmount)
 	}
 
-	.patch_RandomGsLoc_SkipSoilJingle 0x15DBD8 : {
-		*(.patch_RandomGsLoc_SkipSoilJingle)
-	}
+	#.patch_RandomGsLoc_SkipSoilJingle 0x15DBD8 : {
+	#	*(.patch_RandomGsLoc_SkipSoilJingle)
+	#}
 
 	.patch_GrannyBottleCheck 0x161044 : {
 		*(.patch_GrannyBottleCheck)
@@ -212,13 +212,13 @@ SECTIONS
 		*(.patch_MidoForestDialog)
 	}
 
-	.patch_SkipTimeTravelCutsceneOne 0x174DEC : {
-		*(.patch_SkipTimeTravelCutsceneOne)
-	}
+	#.patch_SkipTimeTravelCutsceneOne 0x174DEC : {
+	#	*(.patch_SkipTimeTravelCutsceneOne)
+	#}
 
-	.patch_SkipTwinrovaQuarrelCutsceneTwo 0x176110 : {
-		*(.patch_SkipTwinrovaQuarrelCutsceneTwo)
-	}
+	#.patch_SkipTwinrovaQuarrelCutsceneTwo 0x176110 : {
+	#	*(.patch_SkipTwinrovaQuarrelCutsceneTwo)
+	#}
 
 	.patch_LostWoodsTargetCutscene 0x178058 : {
 		*(.patch_LostWoodsTargetCutscene)
@@ -304,13 +304,13 @@ SECTIONS
 		*(.patch_PlayerGetCustomTunicCMAB)
 	}
 
-	.patch_SkipDaruniaDanceOne 0x19493C : {
-		*(.patch_SkipDaruniaDanceOne)
-	}
+	#.patch_SkipDaruniaDanceOne 0x19493C : {
+	#	*(.patch_SkipDaruniaDanceOne)
+	#}
 
-	.patch_SkipDaruniaDanceTwo 0x194944 : {
-		*(.patch_SkipDaruniaDanceTwo)
-	}
+	#.patch_SkipDaruniaDanceTwo 0x194944 : {
+	#	*(.patch_SkipDaruniaDanceTwo)
+	#}
 
 	.patch_ChildRollingGoron 0x194B18 : {
 		*(.patch_ChildRollingGoron)
@@ -376,9 +376,9 @@ SECTIONS
 		*(.patch_ReadGossipStoneHints)
 	}
 
-	.patch_SkipJabuOpeningCutscene 0x1B583C : {
-		*(.patch_SkipJabuOpeningCutscene)
-	}
+	#.patch_SkipJabuOpeningCutscene 0x1B583C : {
+	#	*(.patch_SkipJabuOpeningCutscene)
+	#}
 
 	.patch_KingZoraSecondTunic 0x1B6A18 : {
 		*(.patch_KingZoraSecondTunic)
@@ -464,13 +464,13 @@ SECTIONS
 		*(.patch_BombchuBowlingStaticReward)
 	}
 
-	.patch_SkipSongReplays_TimeBlocksFix 0x208004 : {
-		*(.patch_SkipSongReplays_TimeBlocksFix)
-	}
+	#.patch_SkipSongReplays_TimeBlocksFix 0x208004 : {
+	#	*(.patch_SkipSongReplays_TimeBlocksFix)
+	#}
 
-	.patch_SkipSongReplays_WarpBlocksFix 0x208068 : {
-		*(.patch_SkipSongReplays_WarpBlocksFix)
-	}
+	#.patch_SkipSongReplays_WarpBlocksFix 0x208068 : {
+	#	*(.patch_SkipSongReplays_WarpBlocksFix)
+	#}
 
 	.patch_ChestMinigame_DontOpenChestsOnInit 0x20EC8C : {
 		*(.patch_ChestMinigame_DontOpenChestsOnInit)
@@ -572,9 +572,9 @@ SECTIONS
 		*(.patch_PermadeathDeleteSave)
 	}
 
-	.patch_SkipDaruniaDanceThree 0x257F00 : {
-		*(.patch_SkipDaruniaDanceThree)
-	}
+	#.patch_SkipDaruniaDanceThree 0x257F00 : {
+	#	*(.patch_SkipDaruniaDanceThree)
+	#}
 
 	.patch_LostWoodsTargetTimer 0x2592B8 : {
 		*(.patch_LostWoodsTargetTimer)
@@ -1148,9 +1148,9 @@ SECTIONS
 		*(.patch_PickUpMasterSword)
 	}
 
-	.patch_SkipMasterSwordFanfare 0x3E5F60 : {
-		*(.patch_SkipMasterSwordFanfare)
-	}
+	#.patch_SkipMasterSwordFanfare 0x3E5F60 : {
+	#	*(.patch_SkipMasterSwordFanfare)
+	#}
 
 	.patch_ShadowShip_CSTimer 0x3E6C50 : {
 		*(.patch_ShadowShip_CSTimer)
@@ -1259,9 +1259,9 @@ SECTIONS
 		*(.patch_CurseTrapDizzyButtons)
 	}
 
-	.patch_PermadeathSkipMenu 0x41C980 + region_offset : {
-		*(.patch_PermadeathSkipMenu)
-	}
+	#.patch_PermadeathSkipMenu 0x41C980 + region_offset : {
+	#	*(.patch_PermadeathSkipMenu)
+	#}
 
 	.patch_SaveMenuIgnoreOpen 0x42EC00 + region_offset : {
 		*(.patch_SaveMenuIgnoreOpen)
@@ -1550,9 +1550,9 @@ SECTIONS
 		*(.patch_SwapFaroresWind)
 	}
 
-	.patch_SkipTimeTravelCutsceneTwo 0x4918C8 + region_offset : {
-		*(.patch_SkipTimeTravelCutsceneTwo)
-	}
+	#.patch_SkipTimeTravelCutsceneTwo 0x4918C8 + region_offset : {
+	#	*(.patch_SkipTimeTravelCutsceneTwo)
+	#}
 
 	.patch_SwapAgeIgnoreSceneSetup 0x4918B0 + region_offset : {
 		*(.patch_SwapAgeIgnoreSceneSetup)

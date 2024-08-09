@@ -42,28 +42,28 @@ void SaveFile_Init(u32 fileBaseIndex) {
     /*-----------------------------------
     |       THINGS TO ALWAYS SET        |
     -----------------------------------*/
-    gSaveContext.cutsceneIndex = 0;          // no intro cutscene
-    gSaveContext.infTable[0x0] |= 0x01;      // greeted by Saria
-    gSaveContext.infTable[0x11] |= 0x0400;   // Met Darunia in Fire Temple
-    gSaveContext.infTable[0x14] |= 0x0016;   // Ruto in Jabu can be escorted immediately,
-                                             // skip cutscene entering Big Octo room
-    gSaveContext.infTable[0x19] |= 0x0100;   // Picked up Magic Container
-    gSaveContext.infTable[0x19] |= 0x0020;   // Talked to owl in Lake Hylia
-    gSaveContext.infTable[0x8] |= 0x0810;    // Met Malon in Market/Castle Grounds and talked to her once
-    gSaveContext.itemGetInf[0x1] |= 0x0008;  // Picked up Deku Seeds
-    gSaveContext.eventChkInf[0x3] |= 0x0800; // began Nabooru Battle
-    gSaveContext.eventChkInf[0x7] |= 0x01FF; // began boss battles
-    gSaveContext.eventChkInf[0x9] |= 0x0010; // Spoke to Nabooru as child
-    gSaveContext.eventChkInf[0xB] |= 0x0001; // Dodongo's Cavern intro
-    gSaveContext.eventChkInf[0x0] |= 0x0004; // Spoke to mido
-    gSaveContext.eventChkInf[0x0] |= 0x1020; // Met deku tree and opened mouth
-    gSaveContext.eventChkInf[0x4] |= 0x8020; // Entered MS chamber, Pulled MS from pedestal
-    gSaveContext.eventChkInf[0xC] |= 0x0020; // Sheik Spawned at MS pedestal as Adult
+    //gSaveContext.cutsceneIndex = 0;          // no intro cutscene
+    // gSaveContext.infTable[0x0] |= 0x01;      // greeted by Saria
+    // gSaveContext.infTable[0x11] |= 0x0400;   // Met Darunia in Fire Temple
+    // gSaveContext.infTable[0x14] |= 0x0016;   // Ruto in Jabu can be escorted immediately,
+    //                                          // skip cutscene entering Big Octo room
+    // gSaveContext.infTable[0x19] |= 0x0100;   // Picked up Magic Container
+    // gSaveContext.infTable[0x19] |= 0x0020;   // Talked to owl in Lake Hylia
+    // gSaveContext.infTable[0x8] |= 0x0810;    // Met Malon in Market/Castle Grounds and talked to her once
+    // gSaveContext.itemGetInf[0x1] |= 0x0008;  // Picked up Deku Seeds
+    // gSaveContext.eventChkInf[0x3] |= 0x0800; // began Nabooru Battle
+    // gSaveContext.eventChkInf[0x7] |= 0x01FF; // began boss battles
+    // gSaveContext.eventChkInf[0x9] |= 0x0010; // Spoke to Nabooru as child
+    // gSaveContext.eventChkInf[0xB] |= 0x0001; // Dodongo's Cavern intro
+    // gSaveContext.eventChkInf[0x0] |= 0x0004; // Spoke to mido
+    // gSaveContext.eventChkInf[0x0] |= 0x1020; // Met deku tree and opened mouth
+    // gSaveContext.eventChkInf[0x4] |= 0x8020; // Entered MS chamber, Pulled MS from pedestal
+    // gSaveContext.eventChkInf[0xC] |= 0x0020; // Sheik Spawned at MS pedestal as Adult
 
-    gSaveContext.sceneFlags[0x05].swch |= 0x00010000; // Met Ruto in Water Temple
-    gSaveContext.sceneFlags[0x5C].swch |= 0x80000000; // Spoke to owl in Desert Colossus (required for music to play)
+    // gSaveContext.sceneFlags[0x05].swch |= 0x00010000; // Met Ruto in Water Temple
+    // gSaveContext.sceneFlags[0x5C].swch |= 0x80000000; // Spoke to owl in Desert Colossus (required for music to play)
 
-    gSaveContext.otherNewEventFlags |= 0x01; // Club Moblin cutscene
+    // gSaveContext.otherNewEventFlags |= 0x01; // Club Moblin cutscene
 
     // open lowest Vanilla Fire Temple locked door (to prevent key logic lockouts)
     // Not done on keysanity since this lockout is a non issue when FiT keys can be found outside the temple
@@ -505,8 +505,8 @@ void SaveFile_SetStartingInventory(void) {
         ItemEffect_GiveDefense(&gSaveContext, 0, 0);
     }
 
-    gSaveContext.healthCapacity = gSettingsContext.startingHearts << 4;
-    gSaveContext.health         = gSettingsContext.startingHearts << 4;
+    gSaveContext.healthCapacity = 48;
+    gSaveContext.health         = 48;
 
     gSaveContext.questItems |= gSettingsContext.startingQuestItems;
     gSaveContext.questItems |= gSettingsContext.startingDungeonReward;
