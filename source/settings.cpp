@@ -43,6 +43,35 @@ SettingsContext FillContext() {
     ctx.playMusic = 1;
     ctx.playSFX = 1;
 
+    ctx.customTunicColors           = (PersonalizationMenu::CustomTunicColors) ? 1 : 0;
+    ctx.rainbowChildTunic           = (PersonalizationMenu::ChildTunicColor.Value<u8>() == RAINBOW_TUNIC) ? 1 : 0;
+    ctx.rainbowKokiriTunic          = (PersonalizationMenu::KokiriTunicColor.Value<u8>() == RAINBOW_TUNIC) ? 1 : 0;
+    ctx.rainbowGoronTunic           = (PersonalizationMenu::GoronTunicColor.Value<u8>() == RAINBOW_TUNIC) ? 1 : 0;
+    ctx.rainbowZoraTunic            = (PersonalizationMenu::ZoraTunicColor.Value<u8>() == RAINBOW_TUNIC) ? 1 : 0;
+    ctx.customNaviColors            = (PersonalizationMenu::CustomNaviColors) ? 1 : 0;
+    ctx.rainbowIdleNaviInnerColor   = (PersonalizationMenu::IdleNaviInnerColor.Value<u8>() == RAINBOW_NAVI) ? 1 : 0;
+    ctx.rainbowNPCNaviInnerColor    = (PersonalizationMenu::NPCNaviInnerColor.Value<u8>() == RAINBOW_NAVI) ? 1 : 0;
+    ctx.rainbowEnemyNaviInnerColor  = (PersonalizationMenu::EnemyNaviInnerColor.Value<u8>() == RAINBOW_NAVI) ? 1 : 0;
+    ctx.rainbowPropNaviInnerColor   = (PersonalizationMenu::PropNaviInnerColor.Value<u8>() == RAINBOW_NAVI) ? 1 : 0;
+    ctx.rainbowIdleNaviOuterColor   = (PersonalizationMenu::IdleNaviOuterColor.Value<u8>() == RAINBOW_NAVI) ? 1 : 0;
+    ctx.rainbowNPCNaviOuterColor    = (PersonalizationMenu::NPCNaviOuterColor.Value<u8>() == RAINBOW_NAVI) ? 1 : 0;
+    ctx.rainbowEnemyNaviOuterColor  = (PersonalizationMenu::EnemyNaviOuterColor.Value<u8>() == RAINBOW_NAVI) ? 1 : 0;
+    ctx.rainbowPropNaviOuterColor   = (PersonalizationMenu::PropNaviOuterColor.Value<u8>() == RAINBOW_NAVI) ? 1 : 0;
+    ctx.customTrailEffects          = (PersonalizationMenu::CustomTrailEffects) ? 1 : 0;
+    ctx.rainbowSwordTrailInnerColor = (PersonalizationMenu::SwordTrailInnerColor.Value<u8>() == RAINBOW_TRAIL) ? 1 : 0;
+    ctx.rainbowSwordTrailOuterColor = (PersonalizationMenu::SwordTrailOuterColor.Value<u8>() == RAINBOW_TRAIL) ? 1 : 0;
+    ctx.boomerangTrailColor.r       = PersonalizationMenu::finalBoomerangColor.r;
+    ctx.boomerangTrailColor.g       = PersonalizationMenu::finalBoomerangColor.g;
+    ctx.boomerangTrailColor.b       = PersonalizationMenu::finalBoomerangColor.b;
+    ctx.boomerangTrailColor.a       = PersonalizationMenu::finalBoomerangColor.a;
+    ctx.boomerangTrailColorMode     = PersonalizationMenu::boomerangTrailColorMode;
+    ctx.boomerangTrailDuration      = PersonalizationMenu::BoomerangTrailDuration.Value<u8>();
+    ctx.rainbowChuTrailInnerColor   = (PersonalizationMenu::BombchuTrailInnerColor.Value<u8>() == RAINBOW_TRAIL) ? 1 : 0;
+    ctx.rainbowChuTrailOuterColor   = (PersonalizationMenu::BombchuTrailOuterColor.Value<u8>() == RAINBOW_TRAIL) ? 1 : 0;
+    ctx.bombchuTrailDuration        = PersonalizationMenu::BombchuTrailDuration.Value<u8>();
+    ctx.coloredKeys                 = (PersonalizationMenu::ColoredKeys) ? 1 : 0;
+    ctx.coloredBossKeys             = (PersonalizationMenu::ColoredBossKeys) ? 1 : 0;
+
     return ctx;
 }
 

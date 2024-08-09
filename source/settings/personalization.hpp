@@ -75,13 +75,13 @@ extern std::vector<Option *> cosmeticOptions;
 
 extern Menu cosmetics;
 
-#define RAINBOW_NAVI (naviOuterOptionNames.size() - 2)
+#define RAINBOW_NAVI (PersonalizationMenu::naviOuterOptionNames.size() - 2)
 #define SAME_AS_INNER_NAVI (PersonalizationMenu::naviOuterOptionNames.size() - 1)
 
-#define RAINBOW_TUNIC (childTunicOptions.size() - 2)
-#define SAME_AS_KOKIRI (childTunicOptions.size() - 1)
+#define RAINBOW_TUNIC (PersonalizationMenu::childTunicOptions.size() - 2)
+#define SAME_AS_KOKIRI (PersonalizationMenu::childTunicOptions.size() - 1)
 
-#define RAINBOW_TRAIL (weaponTrailOuterOptionNames.size() - 2)
-#define SAME_AS_INNER_TRAIL (weaponTrailOuterOptionNames.size() - 1)
+#define RAINBOW_TRAIL (PersonalizationMenu::weaponTrailOuterOptionNames.size() - 2)
+#define SAME_AS_INNER_TRAIL (PersonalizationMenu::weaponTrailOuterOptionNames.size() - 1)
 
 }
