@@ -43,7 +43,7 @@ SettingsContext FillContext() {
     ctx.playMusic = 1;
     ctx.playSFX = 1;
 
-    ctx.customTunicColors           = (PersonalizationMenu::CustomTunicColors) ? 1 : 0;
+    ctx.customTunicColors           = 1;
     ctx.rainbowChildTunic           = (PersonalizationMenu::ChildTunicColor.Value<u8>() == RAINBOW_TUNIC) ? 1 : 0;
     ctx.rainbowKokiriTunic          = (PersonalizationMenu::KokiriTunicColor.Value<u8>() == RAINBOW_TUNIC) ? 1 : 0;
     ctx.rainbowGoronTunic           = (PersonalizationMenu::GoronTunicColor.Value<u8>() == RAINBOW_TUNIC) ? 1 : 0;
@@ -174,6 +174,19 @@ void UpdateCosmetics() {
     } else {
         ChooseFinalColor(ChildTunicColor, finalChildTunicColor, tunicColors);
     }
+
+    ChooseFinalColor(KokiriTunicColor_1, finalKokiriTunicColor_1, tunicColors);
+    ChooseFinalColor(GoronTunicColor_1, finalGoronTunicColor_1, tunicColors);
+    ChooseFinalColor(ZoraTunicColor_1, finalZoraTunicColor_1, tunicColors);
+
+    if (ChildTunicColor.Is(SAME_AS_KOKIRI)) {
+        finalChildTunicColor_1 = finalKokiriTunicColor_1;
+        ChildTunicColor.SetSelectedIndex(KokiriTunicColor_1.Value<u8>());
+    } else {
+        ChooseFinalColor(ChildTunicColor_1, finalChildTunicColor_1, tunicColors);
+    }
+
+
 
     // Gauntlets
     ChooseFinalColor(SilverGauntletsColor, finalSilverGauntletsColor, gauntletColors);

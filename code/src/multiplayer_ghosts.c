@@ -70,6 +70,7 @@ GhostData* Multiplayer_Ghosts_GetGhostData(u16 networkID) {
             return &ghost->ghostData;
         }
     }
+    
     return NULL;
 }
 

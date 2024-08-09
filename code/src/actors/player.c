@@ -226,6 +226,7 @@ void Player_UpdateRainbowTunic(void) {
         if (gSettingsContext.rainbowChildTunic == OFF) {
             return;
         }
+
         cmabManager = ZAR_GetCMABByIndex(&rExtendedObjectCtx.status[exObjectBankIdx].zarInfo, TEXANIM_CHILD_LINK_BODY);
         redOffset   = 0x70;
         greenOffset = 0x88;
@@ -236,6 +237,7 @@ void Player_UpdateRainbowTunic(void) {
             (currentTunic == 3 && gSettingsContext.rainbowZoraTunic == OFF)) {
             return;
         }
+        
         cmabManager = ZAR_GetCMABByIndex(&rExtendedObjectCtx.status[exObjectBankIdx].zarInfo, TEXANIM_LINK_BODY);
         redOffset   = 0x70 + 8 * (currentTunic - 1);
         greenOffset = 0x98 + 8 * (currentTunic - 1);

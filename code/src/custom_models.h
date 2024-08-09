@@ -40,6 +40,8 @@ typedef enum {
     TEXANIM_HEART_CHEST,
     TEXANIM_SKULL_CHEST,
     TEXANIM_OCARINA_NOTE_BUTTON,
+    TEXANIM_LINK_BODY_1, // 13
+    TEXANIM_CHILD_LINK_BODY_1, // 14
 } CustomGeneralAssetsTexAnims;
 
 typedef enum {

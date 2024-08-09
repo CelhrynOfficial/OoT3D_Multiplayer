@@ -19,11 +19,17 @@ extern std::vector<std::string> chuTrailDurationOptionNames;
 extern std::vector<std::string_view> cosmeticDescriptions;
 
 
-extern Option CustomTunicColors;
 extern Option ChildTunicColor;
 extern Option KokiriTunicColor;
 extern Option GoronTunicColor;
 extern Option ZoraTunicColor;
+
+extern Option ChildTunicColor_1;
+extern Option KokiriTunicColor_1;
+extern Option GoronTunicColor_1;
+extern Option ZoraTunicColor_1;
+
+
 extern Option SilverGauntletsColor;
 extern Option GoldGauntletsColor;
 extern Option CustomNaviColors;
@@ -53,6 +59,12 @@ extern std::string finalChildTunicColor;
 extern std::string finalKokiriTunicColor;
 extern std::string finalGoronTunicColor;
 extern std::string finalZoraTunicColor;
+
+extern std::string finalChildTunicColor_1;
+extern std::string finalKokiriTunicColor_1;
+extern std::string finalGoronTunicColor_1;
+extern std::string finalZoraTunicColor_1;
+
 extern std::string finalSilverGauntletsColor;
 extern std::string finalGoldGauntletsColor;
 extern std::string finalIdleNaviInnerColor;

@@ -63,7 +63,7 @@ void EnLinkPuppet_Init(EnLinkPuppet* this, GlobalContext* globalCtx) {
         s16 exObjectBankIdx = Object_GetIndex(&rExtendedObjectCtx, OBJECT_CUSTOM_GENERAL_ASSETS);
         if (exObjectBankIdx >= 0) {
             cmabMan = ZAR_GetCMABByIndex(&rExtendedObjectCtx.status[exObjectBankIdx].zarInfo,
-                                         (gSaveContext.linkAge == 0) ? TEXANIM_LINK_BODY : TEXANIM_CHILD_LINK_BODY);
+                                         (gSaveContext.linkAge == 0) ? TEXANIM_LINK_BODY_1 : TEXANIM_CHILD_LINK_BODY_1);
         }
     } else if (gSaveContext.linkAge == 0) {
         cmabMan = ZAR_GetCMABByIndex(PLAYER->zarInfo, 2);

@@ -135,11 +135,16 @@ std::vector<std::string_view> cosmeticDescriptions = {
     "This will only affect the color on Link's model.",
 };
 
-Option CustomTunicColors          = Option::Bool("Custom Tunic Colors",      {"Off", "On"},                 {""},                                                                                                                                                             OptionCategory::Cosmetic);
-Option ChildTunicColor            = Option::U8  (2, "Child Tunic Color",     childTunicOptions,             cosmeticDescriptions,                                                                                                                                             OptionCategory::Cosmetic,        SAME_AS_KOKIRI);
-Option KokiriTunicColor           = Option::U8  (2, "Kokiri Tunic Color",    tunicOptions,                  cosmeticDescriptions,                                                                                                                                             OptionCategory::Cosmetic,                     3); // Kokiri Green
-Option GoronTunicColor            = Option::U8  (2, "Goron Tunic Color",     tunicOptions,                  cosmeticDescriptions,                                                                                                                                             OptionCategory::Cosmetic,                     4); // Goron Red
-Option ZoraTunicColor             = Option::U8  (2, "Zora Tunic Color",      tunicOptions,                  cosmeticDescriptions,                                                                                                                                             OptionCategory::Cosmetic,                     5); // Zora Blue
+Option ChildTunicColor            = Option::U8  (2, "Child Tunic Color (P1)",     childTunicOptions,             cosmeticDescriptions,                                                                                                                                             OptionCategory::Cosmetic,        SAME_AS_KOKIRI);
+Option KokiriTunicColor           = Option::U8  (2, "Kokiri Tunic Color (P1)",    tunicOptions,                  cosmeticDescriptions,                                                                                                                                             OptionCategory::Cosmetic,                     3); // Kokiri Green
+Option GoronTunicColor            = Option::U8  (2, "Goron Tunic Color (P1)",     tunicOptions,                  cosmeticDescriptions,                                                                                                                                             OptionCategory::Cosmetic,                     4); // Goron Red
+Option ZoraTunicColor             = Option::U8  (2, "Zora Tunic Color (P1)",      tunicOptions,                  cosmeticDescriptions,                                                                                                                                             OptionCategory::Cosmetic,                     5); // Zora Blue
+
+Option ChildTunicColor_1            = Option::U8  (2, "Child Tunic Color (P2)",     childTunicOptions,             cosmeticDescriptions,                                                                                                                                             OptionCategory::Cosmetic,        SAME_AS_KOKIRI);
+Option KokiriTunicColor_1           = Option::U8  (2, "Kokiri Tunic Color (P2)",    tunicOptions,                  cosmeticDescriptions,                                                                                                                                             OptionCategory::Cosmetic,                     3); // Kokiri Green
+Option GoronTunicColor_1            = Option::U8  (2, "Goron Tunic Color (P2)",     tunicOptions,                  cosmeticDescriptions,                                                                                                                                             OptionCategory::Cosmetic,                     4); // Goron Red
+Option ZoraTunicColor_1             = Option::U8  (2, "Zora Tunic Color (P2)",      tunicOptions,                  cosmeticDescriptions,                                                                                                                                             OptionCategory::Cosmetic,                     5); // Zora Blue
+
 Option SilverGauntletsColor       = Option::U8  ("Silver Gauntlets Color",   gauntletOptions,               cosmeticDescriptions,                                                                                                                                             OptionCategory::Cosmetic,                     3); // Silver
 Option GoldGauntletsColor         = Option::U8  ("Gold Gauntlets Color",     gauntletOptions,               cosmeticDescriptions,                                                                                                                                             OptionCategory::Cosmetic,                     4); // Gold
 Option CustomNaviColors           = Option::Bool("Custom Navi Colors",       {"Off", "On"},                 {""},                                                                                                                                                             OptionCategory::Cosmetic);
@@ -162,10 +167,18 @@ Option BombchuTrailInnerColor     = Option::U8  (2, "Bombchu (Inner Color)", wea
 Option BombchuTrailOuterColor     = Option::U8  (2, "Bombchu (Outer Color)", weaponTrailOuterOptionNames,   {RANDOM_CHOICE_DESC, RANDOM_COLOR_DESC, CUSTOM_COLOR_DESC, "Select the color for the sides of the\nbombchu trail."},                                              OptionCategory::Cosmetic,    SAME_AS_INNER_TRAIL);
 Option BombchuTrailDuration       = Option::U8  (2, "Bombchu (Duration)",    chuTrailDurationOptionNames,   {"Select the duration for bombchu trails."},                                                                                                                      OptionCategory::Cosmetic,                      2); // Vanilla
 
+
 std::string finalChildTunicColor      = ChildTunicColor.GetSelectedOptionText();
 std::string finalKokiriTunicColor     = KokiriTunicColor.GetSelectedOptionText();
 std::string finalGoronTunicColor      = GoronTunicColor.GetSelectedOptionText();
 std::string finalZoraTunicColor       = ZoraTunicColor.GetSelectedOptionText();
+
+std::string finalChildTunicColor_1      = ChildTunicColor.GetSelectedOptionText();
+std::string finalKokiriTunicColor_1     = KokiriTunicColor.GetSelectedOptionText();
+std::string finalGoronTunicColor_1      = GoronTunicColor.GetSelectedOptionText();
+std::string finalZoraTunicColor_1       = ZoraTunicColor.GetSelectedOptionText();
+
+
 std::string finalSilverGauntletsColor = SilverGauntletsColor.GetSelectedOptionText();
 std::string finalGoldGauntletsColor   = GoldGauntletsColor.GetSelectedOptionText();
 std::string finalIdleNaviInnerColor   = IdleNaviInnerColor.GetSelectedOptionText();
@@ -190,35 +203,40 @@ Option ColoredBossKeys = Option::Bool("Colored Boss Keys",  {"Off", "On"},      
 Option BetaSoldOut =     Option::Bool("Beta Sold-Out Model",{"Off", "On"},                                {betaSoldOutDesc},                                                                                                                                  OptionCategory::Cosmetic);
 
 std::vector<Option *> cosmeticOptions = {
-    &CustomTunicColors,
     &ChildTunicColor,
     &KokiriTunicColor,
     &GoronTunicColor,
     &ZoraTunicColor,
-    &SilverGauntletsColor,
-    &GoldGauntletsColor,
-    &CustomNaviColors,
-    &IdleNaviInnerColor,
-    &NPCNaviInnerColor,
-    &EnemyNaviInnerColor,
-    &PropNaviInnerColor,
-    &IdleNaviOuterColor,
-    &NPCNaviOuterColor,
-    &EnemyNaviOuterColor,
-    &PropNaviOuterColor,
-    &CustomTrailEffects,
-    &ChosenSimpleMode,
-    &SwordTrailInnerColor,
-    &SwordTrailOuterColor,
-    &SwordTrailDuration,
-    &BoomerangTrailColor,
-    &BoomerangTrailDuration,
-    &BombchuTrailInnerColor,
-    &BombchuTrailOuterColor,
-    &BombchuTrailDuration,
-    &ColoredKeys,
-    &ColoredBossKeys,
-    &BetaSoldOut,
+
+    &ChildTunicColor_1,
+    &KokiriTunicColor_1,
+    &GoronTunicColor_1,
+    &ZoraTunicColor_1,
+
+    // &SilverGauntletsColor,
+    // &GoldGauntletsColor,
+    // &CustomNaviColors,
+    // &IdleNaviInnerColor,
+    // &NPCNaviInnerColor,
+    // &EnemyNaviInnerColor,
+    // &PropNaviInnerColor,
+    // &IdleNaviOuterColor,
+    // &NPCNaviOuterColor,
+    // &EnemyNaviOuterColor,
+    // &PropNaviOuterColor,
+    // &CustomTrailEffects,
+    // &ChosenSimpleMode,
+    // &SwordTrailInnerColor,
+    // &SwordTrailOuterColor,
+    // &SwordTrailDuration,
+    // &BoomerangTrailColor,
+    // &BoomerangTrailDuration,
+    // &BombchuTrailInnerColor,
+    // &BombchuTrailOuterColor,
+    // &BombchuTrailDuration,
+    // &ColoredKeys,
+    // &ColoredBossKeys,
+    // &BetaSoldOut,
 };
 
 Menu cosmetics                = Menu::SubMenu("Cosmetic Settings",          &cosmeticOptions);

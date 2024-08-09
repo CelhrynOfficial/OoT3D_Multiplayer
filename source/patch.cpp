@@ -462,6 +462,12 @@ bool WriteAllPatches() {
     Cosmetics::Color_RGBAf goronTunicColor  = Cosmetics::HexStrToColorRGBAf(PersonalizationMenu::finalGoronTunicColor);
     Cosmetics::Color_RGBAf zoraTunicColor   = Cosmetics::HexStrToColorRGBAf(PersonalizationMenu::finalZoraTunicColor);
 
+    /* Player */
+    Cosmetics::Color_RGBAf childTunicColor_1  = Cosmetics::HexStrToColorRGBAf(PersonalizationMenu::finalChildTunicColor_1);
+    Cosmetics::Color_RGBAf kokiriTunicColor_1 = Cosmetics::HexStrToColorRGBAf(PersonalizationMenu::finalKokiriTunicColor_1);
+    Cosmetics::Color_RGBAf goronTunicColor_1  = Cosmetics::HexStrToColorRGBAf(PersonalizationMenu::finalGoronTunicColor_1);
+    Cosmetics::Color_RGBAf zoraTunicColor_1   = Cosmetics::HexStrToColorRGBAf(PersonalizationMenu::finalZoraTunicColor_1);
+
     // Delete assets if it exists
     Handle assetsOut;
     std::string assetsOutPath = "/luma/titles/" + titleId + "/romfs/actor/zelda_gi_melody.zar";
@@ -489,6 +495,9 @@ bool WriteAllPatches() {
         size_t adultTunicOffsetInZAR  = *(size_t*)(buffer.data() + dataSectionOffsetInZAR + TEXANIM_LINK_BODY * 4);
         size_t childTunicOffsetInZAR = *(size_t*)(buffer.data() + dataSectionOffsetInZAR + TEXANIM_CHILD_LINK_BODY * 4);
 
+        size_t adultTunicOffsetInZAR_1  = *(size_t*)(buffer.data() + dataSectionOffsetInZAR + TEXANIM_LINK_BODY_1 * 4);
+        size_t childTunicOffsetInZAR_1 = *(size_t*)(buffer.data() + dataSectionOffsetInZAR + TEXANIM_CHILD_LINK_BODY_1 * 4);
+
         // edit assets as needed
         WriteFloatToBuffer(buffer, kokiriTunicColor.r, adultTunicOffsetInZAR + 0x70);
         WriteFloatToBuffer(buffer, kokiriTunicColor.g, adultTunicOffsetInZAR + 0x98);
@@ -505,6 +514,23 @@ bool WriteAllPatches() {
         WriteFloatToBuffer(buffer, childTunicColor.r, childTunicOffsetInZAR + 0x70);
         WriteFloatToBuffer(buffer, childTunicColor.g, childTunicOffsetInZAR + 0x88);
         WriteFloatToBuffer(buffer, childTunicColor.b, childTunicOffsetInZAR + 0xA0);
+        
+        /* Second Player */
+        WriteFloatToBuffer(buffer, kokiriTunicColor_1.r, adultTunicOffsetInZAR_1 + 0x70);
+        WriteFloatToBuffer(buffer, kokiriTunicColor_1.g, adultTunicOffsetInZAR_1 + 0x98);
+        WriteFloatToBuffer(buffer, kokiriTunicColor_1.b, adultTunicOffsetInZAR_1 + 0xC0);
+
+        WriteFloatToBuffer(buffer, goronTunicColor_1.r, adultTunicOffsetInZAR_1 + 0x78);
+        WriteFloatToBuffer(buffer, goronTunicColor_1.g, adultTunicOffsetInZAR_1 + 0xA0);
+        WriteFloatToBuffer(buffer, goronTunicColor_1.b, adultTunicOffsetInZAR_1 + 0xC8);
+
+        WriteFloatToBuffer(buffer, zoraTunicColor_1.r, adultTunicOffsetInZAR_1 + 0x80);
+        WriteFloatToBuffer(buffer, zoraTunicColor_1.g, adultTunicOffsetInZAR_1 + 0xA8);
+        WriteFloatToBuffer(buffer, zoraTunicColor_1.b, adultTunicOffsetInZAR_1 + 0xD0);
+
+        WriteFloatToBuffer(buffer, childTunicColor_1.r, childTunicOffsetInZAR_1 + 0x70);
+        WriteFloatToBuffer(buffer, childTunicColor_1.g, childTunicOffsetInZAR_1 + 0x88);
+        WriteFloatToBuffer(buffer, childTunicColor_1.b, childTunicOffsetInZAR_1 + 0xA0);
 
         // Write the assets to final destination
         if (!R_SUCCEEDED(res = FSFILE_Write(assetsOut, &bytesWritten, 0, buffer.data(), buffer.size(), FS_WRITE_FLUSH))) {
